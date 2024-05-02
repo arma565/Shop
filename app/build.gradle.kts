@@ -1,14 +1,18 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.hilt.dagger)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.kapt)
 }
 
 android {
-    namespace = "com.store.digistore"
+    namespace = "com.store.shop"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.store.digistore"
+        applicationId = "com.store.shop"
         minSdk = 25
         targetSdk = 34
         versionCode = 1
@@ -27,22 +31,64 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
+    kotlin {
+        jvmToolchain(21)
     }
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.activity)
+    implementation(libs.android.material)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.ui)
+    implementation(libs.preference.ktx)
+    implementation(libs.joda.time)
+    implementation(libs.androidx.test.core)
+    implementation(libs.androidx.junit)
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.arch)
     androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation(libs.mockito.core)
+    androidTestImplementation(libs.mockito.android)
+    implementation(libs.multidex)
+    implementation(libs.dots.indicator)
+
+    implementation(libs.exoplayer)
+    implementation(libs.exoplayer.dash)
+    implementation(libs.exoplayer.media3.ui)
+
+    implementation(libs.room)
+    implementation(libs.room.ktx)
+    compileOnly(libs.room.compiler.ksp)
+
+    implementation(libs.dagger.hilt)
+    compileOnly(libs.dagger.hilt.compiler.ksp)
+
+    implementation(libs.coroutine.android)
+    implementation(libs.coroutine.core)
+
+
+    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.androidx.lifecycle.livedata)
+
+
+    implementation(libs.androidx.activity.ktx)
+    implementation(libs.androidx.fragment.ktx)
+
+
+    implementation(libs.glide.transformations)
+    implementation(libs.gpu.image)
+//    implementation(libs.piccasso)
+    implementation(libs.glide)
+
+
+    implementation(libs.retrofit2)
+    implementation(libs.retrofit2.converter.gson)
+
 }

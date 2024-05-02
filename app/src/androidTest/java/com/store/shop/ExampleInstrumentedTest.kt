@@ -1,4 +1,4 @@
-package com.store.digistore
+package com.store.shop
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

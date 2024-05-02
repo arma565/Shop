@@ -1,4 +1,4 @@
-package com.store.digistore
+package com.store.shop
 
 import org.junit.Test
 
