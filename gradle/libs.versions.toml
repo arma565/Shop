@@ -24,7 +24,6 @@ activity = "1.9.0"
 fragment = "1.6.2"
 glideTransform = "4.3.0"
 gpuImage = "2.1.0"
-piccasso = "4.16.0"
 glide = "4.16.0"
 retrofit = "2.11.0"
 
@@ -85,7 +84,6 @@ androidx-fragment-ktx  = { group = "androidx.fragment", name = "fragment-ktx", v
 ## Glide Round image
 glide-transformations = { group = "jp.wasabeef", name = "glide-transformations", version.ref = "glideTransform" }
 gpu-image = { group = "jp.co.cyberagent.android", name = "gpuimage", version.ref = "gpuImage" }
-piccasso = { group = "com.squareup.picasso", name = "picasso", version.ref = "piccasso" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 
 ## Retrofit - RxJava

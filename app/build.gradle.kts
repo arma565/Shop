@@ -84,7 +84,6 @@ dependencies {
 
     implementation(libs.glide.transformations)
     implementation(libs.gpu.image)
-//    implementation(libs.piccasso)
     implementation(libs.glide)
 
 
