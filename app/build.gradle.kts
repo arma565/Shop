@@ -53,15 +53,10 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.junit)
     androidTestImplementation(libs.androidx.arch)
-    androidTestImplementation(libs.androidx.espresso.core)
     testImplementation(libs.mockito.core)
     androidTestImplementation(libs.mockito.android)
     implementation(libs.multidex)
     implementation(libs.dots.indicator)
-
-    implementation(libs.exoplayer)
-    implementation(libs.exoplayer.dash)
-    implementation(libs.exoplayer.media3.ui)
 
     implementation(libs.room)
     implementation(libs.room.ktx)
