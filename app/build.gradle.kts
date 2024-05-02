@@ -65,10 +65,10 @@ dependencies {
 
     implementation(libs.room)
     implementation(libs.room.ktx)
-    compileOnly(libs.room.compiler.ksp)
+    ksp(libs.room.compiler.ksp)
 
     implementation(libs.dagger.hilt)
-    compileOnly(libs.dagger.hilt.compiler.ksp)
+    ksp(libs.dagger.hilt.compiler.ksp)
 
     implementation(libs.coroutine.android)
     implementation(libs.coroutine.core)
