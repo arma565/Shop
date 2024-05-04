@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Shop</string>
+    <string name="home">Home</string>
+    <string name="category">Category</string>
+    <string name="setting">Setting</string>
+    <string name="mobiles">Mobile</string>
+    <string name="makeup">MakeUp</string>
+    <string name="discount">Discount</string>
+    <string name="amazing_offer">AmazingOffer</string>
+    <string name="warranty">Warranty: </string>
+    <string name="continue_description">continue reading…</string>
+    <string name="ok">OK</string>
 </resources>

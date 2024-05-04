@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">فروشگاه</string>
+    <string name="home">خانه</string>
+    <string name="category">دسته بندی</string>
+    <string name="setting">تنظیمات</string>
+    <string name="mobiles">موبایل</string>
+    <string name="makeup">آرایشی و بهداشتی</string>
+    <string name="discount">تخفیفات</string>
+    <string name="amazing_offer">پیشنهادات شگفت انگیز</string>
+    <string name="warranty">گارانتی: </string>
+    <string name="continue_description">ادامه…</string>
+    <string name="ok">باشه!</string>
+</resources>
