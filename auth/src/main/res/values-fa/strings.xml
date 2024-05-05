@@ -1,0 +1,160 @@
+<resources>
+    <string name="app_name">مشاور املاک</string>
+    <string name="home">خانه</string>
+    <string name="add">اضافه کردن</string>
+    <string name="setting">تنظیمات</string>
+    <string name="property">بنگاه املاک</string>
+    <string name="save">ذخیره</string>
+    <string name="ok">تایید</string>
+    <string name="seller_name">نام فروشنده: </string>
+    <string name="seller_phone_number">شماره همراه فروشنده: </string>
+    <string name="description">توضیحات: </string>
+    <string name="un_success">ناموفق</string>
+    <string name="commission">کمیسیون به درصد:</string>
+    <string name="tax">درصد مالیات: </string>
+    <string name="commission_calculate">محاسبه کمیسیون</string>
+    <string name="property_address">آدرس ملک:</string>
+    <string name="construction_year">سال ساخت:</string>
+    <string name="property_area">مساحت ملک:</string>
+    <string name="property_price">قیمت ملک:</string>
+    <string name="developer_name">توسعه دهنده</string>
+    <string name="commission_require">مبلغ کمیسیون را وارد کنید</string>
+    <string name="tax_require">مبلغ مالیات را وارد کنید</string>
+    <string name="seller_name_require">نام و نام خانوادگی فروشنده را وارد کنید</string>
+    <string name="seller_phone_require">شماره موبایل فروشنده را وارد کنید</string>
+    <string name="property_address_require">آدرس ملک را وارد کنید</string>
+    <string name="property_construction_year_require">سال ساخت ملک را وارد کنید</string>
+    <string name="property_area_require">مساحت ملک را وارد کنید</string>
+    <string name="property_price_require">قیمت ملک را وارد کنید</string>
+    <string name="app_version">نسخه برنامه: </string>
+    <string name="about_app">درباره نرم افزار</string>
+    <string name="time">ساعت</string>
+    <string name="set_time">تنظیم ساعت</string>
+    <string name="set_date">تنظیم تاریخ</string>
+    <string name="date">تاریخ</string>
+    <string name="clear">پاک کردن</string>
+    <string name="welcome_to_real_estate">به بنگاه املاک خوش آمدید</string>
+    <string name="are_you_looking_for_new_house">دنبال خونه جدید میگردید؟</string>
+    <string name="you_ve_chosen_the_right_place">جای مناسب رو انتخاب کردید</string>
+    <string name="login">ورود</string>
+    <string name="sign_up">ثبت نام</string>
+    <string name="password">رمز عبور</string>
+    <string name="username">نام کاربری</string>
+    <string name="email_address">آدرس ایمیل</string>
+    <string name="already_have_an_account">قبلا حساب کاربری ساختید؟</string>
+    <string name="create_your_account">حساب کاربری بسازید</string>
+    <string name="by_registering_you_are_agreeing_to_our_n_terms_of_use_and_privacy_policy"> با ثبت نام شما با قوانین \n حریم خصوصی ما موافقت کردید</string>
+    <string name="confirm_password">تایید گذرواژه</string>
+    <string name="register">ثبت نام</string>
+    <string name="forgot_password">گذر واژه را فراموش کرده اید؟</string>
+    <string name="welcome">خوش آمدید</string>
+    <string name="login_to_your_account">به حساب خود وارد شوید</string>
+    <string name="don_t_have_an_account">حساب کاربری ندارید؟</string>
+    <string name="remember_me">مرا بخاطر بسپار</string>
+    <string name="reset_password">بازیابی رمز عبور</string>
+    <string name="username_require">نام کاربری اجباری است</string>
+    <string name="email_require">ایمیل اجباری است</string>
+    <string name="email_not_valid">فرمت ایمیل صحیح نیست</string>
+    <string name="password_require">گذرواژه اجباری است</string>
+    <string name="confirm_password_require">گذر واژه را تیید کنید</string>
+    <string name="password_and_confirm_password_are_not_match">گذرواژه و تایید آن برابر نیستند</string>
+    <string name="delete">حذف</string>
+    <string name="share">به اشتراک گذاری</string>
+    <string name="edit">ویرایش</string>
+    <string name="do_you_want_to_delete_this_item">این مورد حذف شود؟</string>
+    <string name="yes">بله</string>
+    <string name="no">خیر</string>
+    <string name="a_z"> نزولی</string>
+    <string name="z_a"> صعودی</string>
+    <string name="date_modified">آخرین تغییرات</string>
+    <string name="sort">مرتب سازی</string>
+    <string name="_search">جست و جو</string>
+    <string name="log_out">خروج از حساب</string>
+    <string name="search_here">جست و جو کنید…</string>
+    <string name="no_data_found">رکوردی یافت نشد!</string>
+    <string name="item_sell_buy">خرید و فروش</string>
+    <string name="item_mortgage">رهن کامل</string>
+    <string name="item_mortgage_rent">رهن و اجاره</string>
+    <string name="type">نوع:</string>
+    <string name="account">حساب کاربری</string>
+    <string name="language">زبان</string>
+    <string name="english">انگلیسی</string>
+    <string name="persian">پارسی</string>
+    <string name="on">روشن</string>
+    <string name="reza_gorji">رضا گرجی</string>
+    <string name="personal_info">اطلاعات شخصی</string>
+    <string name="general">عمومی</string>
+    <string name="dark_mode">حالت تاریک</string>
+    <string name="off">خاموش</string>
+    <string name="support">پشتیبانی</string>
+    <string name="help">راهنمایی و پشتیبانی</string>
+    <string name="developer_email">ایمیل توسعه دهنده</string>
+    <string name="rezagorji68_gmail_com">rezagorji68@gmail.com</string>
+    <string name="v1_0">v1.0</string>
+    <string name="developer_contact_info">اطلاعات تماس توسعه دهنده</string>
+    <string name="no_name">بدون نام</string>
+    <string name="firstname_require">نام اجباریست</string>
+    <string name="lastname_require">نام خانوادگی اجباریست</string>
+    <string name="phonenumber_require">شماره موبایل اجباریست</string>
+    <string name="delete_user">حذف کاربر</string>
+    <string name="user_will_permanently_deleted_are_you_sure">کاربر برای همیشه حذف می شود، انجام شود؟</string>
+    <string name="user_not_found">کاربر پیدا نشد</string>
+    <string name="user_already_exist">کاربر با همین ایمیل قبلا ساخته شده</string>
+    <string name="property_price_is_0_or_less_than_0">قیمت ملک 0</string>
+    <string name="pay">پرداخت</string>
+    <string name="total_paid">مبلغ کل پرداختی:</string>
+    <string name="delete_account">حذف حساب</string>
+    <string name="delete_notice">حساب شما برای همیشه حذف خواهد شد، اطلاعات از بین حذف می شوند</string>
+    <string name="get_started">شروع کن</string>
+    <string name="please_input_your_email">ایمیل خود را وارد کنید</string>
+    <string name="upload_image_profile">انتخاب عکس پروفایل</string>
+    <string name="firstname">نام</string>
+    <string name="lastname">نام خانوادگی</string>
+    <string name="phonenumber">شماره موبایل</string>
+    <string name="select_profile_image">عکس پروفایل خود را انتخاب کنید</string>
+    <string name="current_password">پسورد قبلی</string>
+    <string name="new_password">پسورد جدید</string>
+    <string name="account_data">داده های حساب کاربری</string>
+    <string name="personal_data">داده های اطلاعات شخصی</string>
+    <string name="rent_amount">مبلغ اجاره ماهیانه</string>
+    <string name="total_amount_pay">کل مبلغ پرداختی:</string>
+    <string name="_0_25">0.25</string>
+    <string name="_0_09">0.09</string>
+    <string name="_0">0</string>
+    <string name="recovery_code">کد بازیابی حساب کاربری</string>
+    <string name="your_registration_recovery_code">کد بازیابی حساب شما</string>
+    <string name="your_registration_recovery_code_is">کد بازیابی حساب کاربری شما این است: </string>
+    <string name="please_keep_it_for_recovery_assistance">لطفا این کد رو جهت بازیابی حساب کاربری خود نگه دارید</string>
+    <string name="please_input_new_password">لطفا گذر واژه جدید را وارد کنید</string>
+    <string name="recovery_code_is_require">کد بازیابی حساب کاربری الزامیست</string>
+    <string name="change_password">تغییر گذرواژه</string>
+    <string name="currentpassword_is_not_correct">گذر واژه قبلی نادرست است</string>
+    <string name="help_and_support">راهنمایی و پشتیبانی</string>
+    <string name="are_you_sure">آیا مطمئن هستید؟</string>
+    <string name="there_are_no_email_clients_installed">There are no email clients installed.</string>
+    <string name="send_mail">ارسال ایمیل…</string>
+    <string name="registered_in">ثبت شده در:</string>
+
+
+
+    <string-array name="property_items">
+        <item>@string/item_sell_buy</item>
+        <item>@string/item_mortgage</item>
+        <item>@string/item_mortgage_rent</item>
+    </string-array>
+
+    <string-array name="language">
+        <item>@string/english</item>
+        <item>@string/persian</item>
+    </string-array>
+
+
+    // Don't translate
+    <string name="user_auto_login">user_auto_login</string>
+    <string name="email">email</string>
+    <string name="user">user</string>
+    <string name="userid">userId</string>
+    <string name="recovery_code_is_incorrect">Recovery code is Incorrect</string>
+
+
+</resources>

@@ -10,4 +10,14 @@
     <string name="warranty">گارانتی: </string>
     <string name="continue_description">ادامه…</string>
     <string name="ok">باشه!</string>
+    <string name="brand">برند:</string>
+    <string name="title">عنوان:</string>
+    <string name="cat_name">نام دسته بندی:</string>
+    <string name="inventory">موجودی:</string>
+    <string name="special">برند خاص:</string>
+    <string name="lbl_discount_product">تخفیف:</string>
+    <string name="price">قیمت:</string>
+    <string name="mode">مد و لباس</string>
+    <string name="sport">لوازم ورزشی</string>
+    <string name="home_product">لوازم خانگی</string>
 </resources>

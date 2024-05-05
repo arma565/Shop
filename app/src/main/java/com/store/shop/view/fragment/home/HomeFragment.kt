@@ -56,23 +56,30 @@ class HomeFragment : Fragment() {
         }
 
         viewModel.getBaseHome().observe(owner) { baseHome ->
-            binding.recAmazing.adapter =
-                HomeAdapter(requireActivity(), baseHome.amazingOffer)
-            binding.recAmazing.layoutManager =
-                LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+            viewModel.getCategory().observe(owner){baseCategory->
+                binding.recAmazing.adapter = HomeAdapter(requireActivity(), baseHome.amazingOffer)
+                binding.recAmazing.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
 
-            binding.recMobiles.adapter = HomeAdapter(requireActivity(), baseHome.mobile)
-            binding.recMobiles.layoutManager =
-                LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+                binding.recDiscount.adapter = HomeAdapter(requireActivity(), baseHome.discount)
+                binding.recDiscount.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
 
-            binding.recMakeup.adapter = HomeAdapter(requireActivity(), baseHome.makeup)
-            binding.recMakeup.layoutManager =
-                LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+                binding.recMobiles.adapter = HomeAdapter(requireActivity(), baseHome.mobile)
+                binding.recMobiles.layoutManager =
+                    LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
 
-            binding.recDiscount.adapter =
-                HomeAdapter(requireActivity(), baseHome.discount)
-            binding.recDiscount.layoutManager =
-                LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+                binding.recMakeup.adapter = HomeAdapter(requireActivity(), baseHome.makeup)
+                binding.recMakeup.layoutManager =
+                    LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+
+                binding.recStyle.adapter = HomeAdapter(requireActivity(), baseCategory.mode)
+                binding.recStyle.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+
+                binding.recSport.adapter = HomeAdapter(requireActivity(), baseCategory.sport)
+                binding.recSport.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+
+                binding.recHome.adapter = HomeAdapter(requireActivity(), baseCategory.home)
+                binding.recHome.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+            }
         }
     }
 }

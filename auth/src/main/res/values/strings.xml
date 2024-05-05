@@ -1,0 +1,160 @@
+<resources>
+    <string name="app_name">Real Estate</string>
+    <string name="home">Home</string>
+    <string name="add">Add</string>
+    <string name="setting">Setting</string>
+    <string name="property">Property</string>
+    <string name="save">Save</string>
+    <string name="ok">OK</string>
+    <string name="seller_name">Seller Name:</string>
+    <string name="seller_phone_number">Seller PhoneNumber:</string>
+    <string name="description">Description:</string>
+    <string name="un_success">Unsuccessful</string>
+    <string name="commission">Commission:</string>
+    <string name="tax">Tax:</string>
+    <string name="commission_calculate">Commission Calculator</string>
+    <string name="property_address">Address:</string>
+    <string name="construction_year">Year:</string>
+    <string name="property_area">Area:</string>
+    <string name="property_price">Price:</string>
+    <string name="developer_name">Developer Name</string>
+    <string name="commission_require">Commission Require</string>
+    <string name="tax_require">Tax Require</string>
+    <string name="seller_name_require">Seller Name Require</string>
+    <string name="seller_phone_require">Seller PhoneNumber Require</string>
+    <string name="property_address_require">Property Address Require</string>
+    <string name="property_construction_year_require">Property Construction Year Require</string>
+    <string name="property_area_require">Property Area Require</string>
+    <string name="property_price_require">Property Price Require</string>
+    <string name="app_version">App Version:</string>
+    <string name="about_app">About App</string>
+    <string name="time">Time:</string>
+    <string name="set_time">Set Time</string>
+    <string name="set_date">Set Date</string>
+    <string name="date">Date:</string>
+    <string name="clear">Clear</string>
+    <string name="vector_path" translatable="false">M19.14,12.94c0.04,-0.3 0.06,-0.61 0.06,-0.94c0,-0.32 -0.02,-0.64 -0.07,-0.94l2.03,-1.58c0.18,-0.14 0.23,-0.41 0.12,-0.61l-1.92,-3.32c-0.12,-0.22 -0.37,-0.29 -0.59,-0.22l-2.39,0.96c-0.5,-0.38 -1.03,-0.7 -1.62,-0.94L14.4,2.81c-0.04,-0.24 -0.24,-0.41 -0.48,-0.41h-3.84c-0.24,0 -0.43,0.17 -0.47,0.41L9.25,5.35C8.66,5.59 8.12,5.92 7.63,6.29L5.24,5.33c-0.22,-0.08 -0.47,0 -0.59,0.22L2.74,8.87C2.62,9.08 2.66,9.34 2.86,9.48l2.03,1.58C4.84,11.36 4.8,11.69 4.8,12s0.02,0.64 0.07,0.94l-2.03,1.58c-0.18,0.14 -0.23,0.41 -0.12,0.61l1.92,3.32c0.12,0.22 0.37,0.29 0.59,0.22l2.39,-0.96c0.5,0.38 1.03,0.7 1.62,0.94l0.36,2.54c0.05,0.24 0.24,0.41 0.48,0.41h3.84c0.24,0 0.44,-0.17 0.47,-0.41l0.36,-2.54c0.59,-0.24 1.13,-0.56 1.62,-0.94l2.39,0.96c0.22,0.08 0.47,0 0.59,-0.22l1.92,-3.32c0.12,-0.22 0.07,-0.47 -0.12,-0.61L19.14,12.94zM12,15.6c-1.98,0 -3.6,-1.62 -3.6,-3.6s1.62,-3.6 3.6,-3.6s3.6,1.62 3.6,3.6S13.98,15.6 12,15.6z</string>
+    <string name="welcome_to_real_estate">Welcome to Real Estate</string>
+    <string name="are_you_looking_for_new_house">Are you looking for new House?</string>
+    <string name="you_ve_chosen_the_right_place">You\'ve Chosen The Right Place</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="email_address">Email address</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="create_your_account">Create your account</string>
+    <string name="by_registering_you_are_agreeing_to_our_n_terms_of_use_and_privacy_policy">By registering you are agreeing to our \n Terms of use and Privacy Policy</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="register">Register</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="welcome">Welcome</string>
+    <string name="login_to_your_account">Login to your account</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="remember_me">Remember me</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="username_require">Username Require</string>
+    <string name="email_require">Email Require</string>
+    <string name="email_not_valid">Email Not Valid</string>
+    <string name="password_require">Password Require</string>
+    <string name="confirm_password_require">Confirm Password Require</string>
+    <string name="password_and_confirm_password_are_not_match">Password and Confirm Password Are Not Match</string>
+    <string name="delete">Delete</string>
+    <string name="share">Share</string>
+    <string name="edit">Edit</string>
+    <string name="do_you_want_to_delete_this_item">Do you want to delete this item?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="a_z">Descending</string>
+    <string name="z_a">Ascending</string>
+    <string name="date_modified">Date Modified</string>
+    <string name="sort">Sort</string>
+    <string name="_search">Search</string>
+    <string name="log_out">Log Out</string>
+    <string name="search_here">Search Here…</string>
+    <string name="no_data_found">No Data Found!</string>
+    <string name="item_sell_buy">Sell or Buy</string>
+    <string name="item_mortgage">Mortgage</string>
+    <string name="item_mortgage_rent">Mortgage and rent</string>
+    <string name="type">Type:</string>
+    <string name="account">Account</string>
+    <string name="language">Language</string>
+    <string name="english">English</string>
+    <string name="persian">Persian</string>
+    <string name="on">On</string>
+    <string name="reza_gorji">Reza Gorji</string>
+    <string name="personal_info">Personal Info</string>
+    <string name="general">General</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="off">Off</string>
+    <string name="support">Support</string>
+    <string name="help">Help and support</string>
+    <string name="developer_email">Developer Email</string>
+    <string name="rezagorji68_gmail_com">rezagorji68@gmail.com</string>
+    <string name="v1_0">v1.0</string>
+    <string name="developer_contact_info">Developer contact info</string>
+    <string name="no_name">No Name</string>
+    <string name="firstname_require">FirstName Require</string>
+    <string name="lastname_require">LastName Require</string>
+    <string name="phonenumber_require">PhoneNumber Require</string>
+    <string name="delete_user">Delete User</string>
+    <string name="user_will_permanently_deleted_are_you_sure">User will permanently deleted, are you sure?</string>
+    <string name="user_not_found">User not found </string>
+    <string name="user_already_exist">User already exist</string>
+    <string name="property_price_is_0_or_less_than_0">Property Price is 0 or less than 0</string>
+    <string name="pay">Pay</string>
+    <string name="total_paid">Total Paid:</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="delete_notice">Your account will be permanently \n removed from the application. \n All your data will be lost</string>
+    <string name="get_started">Get Started</string>
+    <string name="please_input_your_email">Please input your email</string>
+    <string name="upload_image_profile">Upload Image Profile</string>
+    <string name="firstname">FirstName</string>
+    <string name="lastname">LastName</string>
+    <string name="phonenumber">PhoneNumber</string>
+    <string name="select_profile_image">Select profile image</string>
+    <string name="current_password">Current Password</string>
+    <string name="new_password">New Password</string>
+    <string name="account_data">Account Data</string>
+    <string name="personal_data">Personal Data</string>
+    <string name="rent_amount">Rent Amount</string>
+    <string name="total_amount_pay">Total Amount Pay:</string>
+    <string name="_0_25">0.25</string>
+    <string name="_0_09">0.09</string>
+    <string name="_0">0</string>
+    <string name="recovery_code">Recovery Code</string>
+    <string name="your_registration_recovery_code">Your Registration Recovery Code</string>
+    <string name="your_registration_recovery_code_is">Your registration recovery code is:</string>
+    <string name="please_keep_it_for_recovery_assistance">Please keep it for recovery assistance</string>
+    <string name="please_input_new_password">Please input new password</string>
+    <string name="recovery_code_is_require">Recovery code is require</string>
+    <string name="change_password">Change Password</string>
+    <string name="currentpassword_is_not_correct">CurrentPassword is not correct</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="there_are_no_email_clients_installed">There are no email clients installed.</string>
+    <string name="send_mail">Send mail…</string>
+    <string name="help_and_support">Help and support</string>
+
+    <string-array name="property_items">
+        <item>@string/item_sell_buy</item>
+        <item>@string/item_mortgage</item>
+        <item>@string/item_mortgage_rent</item>
+    </string-array>
+
+    <string-array name="language">
+        <item>@string/english</item>
+        <item>@string/persian</item>
+    </string-array>
+
+
+
+    // Don't translate(SharePreferences Items)
+    <string name="user_auto_login">user_auto_login</string>
+    <string name="email">email</string>
+    <string name="user">user</string>
+    <string name="userid">userId</string>
+    <string name="registered_in">Registered in:</string>
+    <string name="recovery_code_is_incorrect">Recovery code is Incorrect</string>
+
+
+</resources>

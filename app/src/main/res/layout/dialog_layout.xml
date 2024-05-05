@@ -37,7 +37,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnOk"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/_300dp"
                 android:layout_height="wrap_content"
                 android:background="@color/red"
                 android:text="@string/ok"

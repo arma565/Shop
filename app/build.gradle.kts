@@ -55,6 +55,8 @@ dependencies {
     implementation(libs.joda.time)
     implementation(libs.androidx.test.core)
     implementation(libs.androidx.junit)
+    implementation(project(":auth"))
+    implementation(libs.androidx.activity)
     testImplementation(libs.junit)
     androidTestImplementation(libs.junit)
     androidTestImplementation(libs.androidx.arch)

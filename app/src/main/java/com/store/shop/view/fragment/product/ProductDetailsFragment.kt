@@ -55,7 +55,7 @@ class ProductDetailsFragment : Fragment() {
         binding.pagerProduct.adapter = GalleryAdapter(requireActivity(), product.gallery)
         binding.springDotsIndicator.attachTo(binding.pagerProduct)
 
-        binding.txtContinue.setOnClickListener {
+        binding.txtShort.setOnClickListener {
             val dialog = AlertDialog.Builder(requireContext()).create()
             val binding: DialogLayoutBinding = DataBindingUtil.bind(
                 LayoutInflater.from(requireContext())

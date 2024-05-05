@@ -17,7 +17,6 @@ import com.store.shop.view.fragment.productCategory.adapter.ProductCategoryAdapt
 import com.store.shop.viewmodel.ShopViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
-//TODO ADD MORE FROM PRODUCT MODEL
 @Suppress("DEPRECATION")
 @AndroidEntryPoint
 class ProductCategoryFragment : Fragment() {

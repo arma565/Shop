@@ -89,6 +89,27 @@
             app:layout_constraintStart_toStartOf="parent"
             />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/lbl_discount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/discount"
+            android:textSize="@dimen/_20sp"
+            android:textStyle="italic|bold"
+            android:layout_marginEnd="@dimen/_16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rec_amazing" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rec_discount"
+            android:layout_width="@dimen/_0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/lbl_discount"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/lbl_mobiles"
@@ -101,7 +122,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rec_amazing" />
+            app:layout_constraintTop_toBottomOf="@id/rec_discount" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rec_mobiles"
             android:layout_width="@dimen/_0dp"
@@ -134,25 +155,70 @@
             />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/lbl_discount"
+            android:id="@+id/lbl_mode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/discount"
+            android:layout_marginEnd="@dimen/_16dp"
+            android:text="@string/mode"
             android:textSize="@dimen/_20sp"
             android:textStyle="italic|bold"
-            android:layout_marginEnd="@dimen/_16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rec_makeup" />
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rec_discount"
+            android:id="@+id/rec_style"
             android:layout_width="@dimen/_0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/lbl_discount"
+            app:layout_constraintTop_toBottomOf="@id/lbl_mode"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/lbl_sport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_16dp"
+            android:text="@string/sport"
+            android:textSize="@dimen/_20sp"
+            android:textStyle="italic|bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rec_style" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rec_sport"
+            android:layout_width="@dimen/_0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/lbl_sport"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/lbl_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_16dp"
+            android:text="@string/home_product"
+            android:textSize="@dimen/_20sp"
+            android:textStyle="italic|bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rec_sport" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rec_home"
+            android:layout_width="@dimen/_0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/lbl_home"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

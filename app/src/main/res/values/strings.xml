@@ -10,4 +10,14 @@
     <string name="warranty">Warranty: </string>
     <string name="continue_description">continue reading…</string>
     <string name="ok">OK</string>
+    <string name="brand">Brand:</string>
+    <string name="title">Title:</string>
+    <string name="cat_name">Category Name:</string>
+    <string name="inventory">Inventory:</string>
+    <string name="special">Special:</string>
+    <string name="lbl_discount_product">Discount:</string>
+    <string name="price">Price:</string>
+    <string name="mode">Style</string>
+    <string name="sport">Sport</string>
+    <string name="home_product">Home</string>
 </resources>
