@@ -30,19 +30,4 @@ interface ApiService {
 
     @GET("home.php")
     suspend fun getBaseHome(): Response<BaseHome>
-
-    @FormUrlEncoded
-    @POST("login.php")
-    suspend fun login(
-        @Field("username") username: String,
-        @Field("password") password: String
-    ): Call<String>
-
-    @FormUrlEncoded
-    @POST("register.php")
-    suspend fun register(
-        @Field("username") username: String,
-        @Field("password") password: String
-    ): Call<Int>
-
 }

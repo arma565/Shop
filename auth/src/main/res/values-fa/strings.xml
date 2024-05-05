@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">مشاور املاک</string>
+    <string name="app_name">فروشگاه</string>
     <string name="home">خانه</string>
     <string name="add">اضافه کردن</string>
     <string name="setting">تنظیمات</string>
@@ -33,8 +33,7 @@
     <string name="set_date">تنظیم تاریخ</string>
     <string name="date">تاریخ</string>
     <string name="clear">پاک کردن</string>
-    <string name="welcome_to_real_estate">به بنگاه املاک خوش آمدید</string>
-    <string name="are_you_looking_for_new_house">دنبال خونه جدید میگردید؟</string>
+    <string name="are_you_looking_for_new_house">دنبال لوازم جدید میگردید؟</string>
     <string name="you_ve_chosen_the_right_place">جای مناسب رو انتخاب کردید</string>
     <string name="login">ورود</string>
     <string name="sign_up">ثبت نام</string>

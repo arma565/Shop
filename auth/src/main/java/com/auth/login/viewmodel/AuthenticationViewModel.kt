@@ -17,6 +17,8 @@ class AuthenticationViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : ViewModel() {
 
+
+
     /**
      * Upsert user in DB
      * @param user: user model

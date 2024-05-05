@@ -71,7 +71,7 @@ class RecoveryUserFragment : Fragment() {
                     viewModel.upsertUser(newUserPassword)
                     this@launch.launch(Main) {
                         GlobalFunctions.getNavControllerFragmentAuth(requireActivity())
-                            .navigate(RecoveryUserFragmentDirections.actionRecoveryFragmentToLoginFragment())
+                            .navigate(R.id.action_recoveryFragment_to_loginFragment)
                     }
                 }
             }

@@ -30,9 +30,6 @@ class ShopViewModel @Inject constructor(
     private lateinit var getCategoryLiveData: MutableLiveData<BaseCategory>
     private lateinit var getProductCategoryLiveData: MutableLiveData<BaseProductCategory>
     private lateinit var getBaseHomeLiveData: MutableLiveData<BaseHome>
-    private lateinit var loginLiveData: MutableLiveData<String>
-    private lateinit var registerLiveData: MutableLiveData<Int>
-
 
     /**
      * Get news
@@ -91,42 +88,5 @@ class ShopViewModel @Inject constructor(
             getBaseHomeLiveData.postValue(shopRepository.getBaseHome().body())
         }
         return getBaseHomeLiveData
-    }
-
-
-    /**
-     * login
-     */
-    fun login(username: String, password: String): LiveData<String> {
-        loginLiveData = MutableLiveData()
-        viewModelScope.launch {
-            shopRepository.login(username, password).enqueue(object : Callback<String> {
-                override fun onResponse(call: Call<String>, response: Response<String>) {
-                    loginLiveData.postValue(response.body())
-                }
-
-                override fun onFailure(p0: Call<String>, p1: Throwable) {}
-
-            })
-        }
-        return loginLiveData
-    }
-
-    /**
-     * register
-     */
-    fun register(username: String, password: String): LiveData<Int> {
-        registerLiveData = MutableLiveData()
-        viewModelScope.launch {
-            shopRepository.register(username, password).enqueue(object : Callback<Int> {
-                override fun onResponse(call: Call<Int>, response: Response<Int>) {
-                    registerLiveData.postValue(response.body())
-                }
-
-                override fun onFailure(p0: Call<Int>, p1: Throwable) {}
-
-            })
-        }
-        return registerLiveData
     }
 }

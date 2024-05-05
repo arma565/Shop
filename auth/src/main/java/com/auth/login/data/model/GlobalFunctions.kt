@@ -12,7 +12,6 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
 object GlobalFunctions {
-
     fun layoutEdtEndIconMode(layout: TextInputLayout, edt: TextInputEditText) {
         edt.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}

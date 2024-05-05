@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.auth.login.R
 import com.auth.login.data.local.config.UserAutoLoginConfig
 import com.auth.login.data.model.GlobalFunctions
 import com.auth.login.databinding.FragmentAuthHomeBinding
@@ -12,6 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeAuthFragment : Fragment() {
+
     private lateinit var binding: FragmentAuthHomeBinding
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +36,7 @@ class HomeAuthFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.btnStart.setOnClickListener {
             GlobalFunctions.getNavControllerFragmentAuth(requireActivity())
-                .navigate(HomeAuthFragmentDirections.actionHomeLoginFragmentToLoginFragment())
+                .navigate(R.id.action_homeLoginFragment_to_loginFragment)
         }
     }
 }

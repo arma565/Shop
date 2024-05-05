@@ -31,10 +31,6 @@ class ShopRepository @Inject constructor(
 
     suspend fun getBaseHome(): Response<BaseHome> = apiService.getBaseHome()
 
-    suspend fun login(username: String, password: String): Call<String> =
-        apiService.login(username, password)
 
-    suspend fun register(username: String, password: String): Call<Int> =
-        apiService.register(username, password)
 
 }

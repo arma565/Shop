@@ -1,5 +1,6 @@
 package com.auth.login.view.fragment.login
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.Toast
 import androidx.core.util.PatternsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import com.auth.login.R
 import com.auth.login.data.local.config.UserAutoLoginConfig
@@ -15,6 +17,7 @@ import com.auth.login.data.local.config.UserInfoConfig
 import com.auth.login.data.model.GlobalFunctions
 import com.auth.login.data.model.User
 import com.auth.login.databinding.FragmentLoginBinding
+import com.auth.login.viewmodel.AuthNetworkViewModel
 import com.auth.login.viewmodel.AuthenticationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -26,7 +29,14 @@ import kotlinx.coroutines.launch
 class LoginFragmentUser : Fragment() {
     private lateinit var binding: FragmentLoginBinding
     private lateinit var navController: NavController
+    private lateinit var owner: LifecycleOwner
     private val viewModel: AuthenticationViewModel by viewModels()
+    private val networkViewModel: AuthNetworkViewModel by viewModels()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        owner = this
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,7 +56,7 @@ class LoginFragmentUser : Fragment() {
         navController = GlobalFunctions.getNavControllerFragmentAuth(requireActivity())
 
         binding.txtSignUp.setOnClickListener {
-            navController.navigate(LoginFragmentUserDirections.actionLoginFragmentToRegisterFragment())
+            navController.navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
         binding.btnLogin.setOnClickListener {
@@ -57,7 +67,7 @@ class LoginFragmentUser : Fragment() {
             if (validateUserLogin(user)) {
                 CoroutineScope(IO).launch {
                     viewModel.getUserList().collect { userList ->
-                        if (userList.none { it.email == user.email && it.password == user.password }){
+                        if (userList.none { it.email == user.email && it.password == user.password }) {
                             this.launch(Main) {
                                 Toast.makeText(
                                     activity,
@@ -67,16 +77,29 @@ class LoginFragmentUser : Fragment() {
                             }
                             return@collect
                         }
-                        val foundUser: User = userList.first { it.email == user.email && it.password == user.password }
+                        val foundUser: User =
+                            userList.first { it.email == user.email && it.password == user.password }
                         this.launch(Main) {
-                            val userAutoLoginConfig = UserAutoLoginConfig(requireActivity())
-                            val userInfoConfig = UserInfoConfig(requireActivity())
-                            if (binding.checkBoxRemember.isChecked) {
-                                userAutoLoginConfig.save(foundUser)
-                                userInfoConfig.save(foundUser)
-                            }
-                            userInfoConfig.save(foundUser)
-                            GlobalFunctions.logIn(requireActivity())
+                            networkViewModel.login(user.email!!, user.password!!)
+                                .observe(owner) { res ->
+                                    if (res <= "0") {
+                                        Toast.makeText(
+                                            activity,
+                                            getString(R.string.un_success),
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                        return@observe
+                                    }else{
+                                        val userAutoLoginConfig = UserAutoLoginConfig(requireActivity())
+                                        val userInfoConfig = UserInfoConfig(requireActivity())
+                                        if (binding.checkBoxRemember.isChecked) {
+                                            userAutoLoginConfig.save(foundUser)
+                                            userInfoConfig.save(foundUser)
+                                        }
+                                        userInfoConfig.save(foundUser)
+                                        GlobalFunctions.logIn(requireActivity())
+                                    }
+                                }
                         }
                     }
                 }
@@ -84,7 +107,7 @@ class LoginFragmentUser : Fragment() {
         }
 
         binding.txtForgot.setOnClickListener {
-            navController.navigate(LoginFragmentUserDirections.actionLoginFragmentToForgotFragment())
+            navController.navigate(R.id.action_loginFragment_to_forgotFragment)
         }
     }
 

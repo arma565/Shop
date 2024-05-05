@@ -12,7 +12,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AuthModule {
+object AuthModuleDatabase {
 
     private const val AUTH_DATABASE_NAME = "auth.db"
 

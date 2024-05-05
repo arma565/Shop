@@ -1,6 +1,7 @@
 package com.auth.login.view.fragment.register
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +10,13 @@ import android.widget.Toast
 import androidx.core.util.PatternsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import com.auth.login.R
 import com.auth.login.data.model.GlobalFunctions
 import com.auth.login.data.model.User
 import com.auth.login.databinding.FragmentRegisterBinding
+import com.auth.login.viewmodel.AuthNetworkViewModel
 import com.auth.login.viewmodel.AuthenticationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -25,7 +28,14 @@ import kotlinx.coroutines.launch
 class RegisterFragmentUser : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
     private lateinit var navController: NavController
+    private lateinit var owner: LifecycleOwner
     private val viewModel: AuthenticationViewModel by viewModels()
+    private val networkViewModel: AuthNetworkViewModel by viewModels()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        owner = this
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,7 +58,7 @@ class RegisterFragmentUser : Fragment() {
         navController = GlobalFunctions.getNavControllerFragmentAuth(requireActivity())
 
         binding.txtLogin.setOnClickListener {
-            navController.navigate(RegisterFragmentUserDirections.actionRegisterFragmentToLoginFragment())
+            navController.navigate(R.id.action_registerFragment_to_loginFragment)
         }
 
         binding.btnSignUp.setOnClickListener {
@@ -70,24 +80,32 @@ class RegisterFragmentUser : Fragment() {
                                 ).show()
                                 return@LaunchMain
                             }
-                            this.launch(IO) LaunchIO@{
-                                viewModel.upsertUser(user)
-                                this@LaunchMain.launch(Main){
-                                    val alert: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-                                    alert.setTitle(requireContext().getString(R.string.your_registration_recovery_code))
-                                    alert.setIcon(android.R.drawable.ic_dialog_info)
-                                    alert.setMessage(
-                                        requireContext().getString(R.string.your_registration_recovery_code_is)
-                                            .plus(user.recoveryCode)
-                                            .plus("\n")
-                                            .plus(requireContext().getString(R.string.please_keep_it_for_recovery_assistance))
-                                    )
-                                    alert.setPositiveButton(requireContext().getString(R.string.ok)) { _, _ ->
-                                        navController.navigate(RegisterFragmentUserDirections.actionRegisterFragmentToLoginFragment())
+                            networkViewModel.register(user.email!!, user.password!!)
+                                .observe(owner) { res ->
+                                    if (res <= 0) {
+                                        Toast.makeText(
+                                            activity,
+                                            getString(R.string.un_success),
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                        return@observe
+                                    }else{
+                                        viewModel.upsertUser(user)
+                                        val alert: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+                                        alert.setTitle(requireContext().getString(R.string.your_registration_recovery_code))
+                                        alert.setIcon(android.R.drawable.ic_dialog_info)
+                                        alert.setMessage(
+                                            requireContext().getString(R.string.your_registration_recovery_code_is)
+                                                .plus(user.recoveryCode)
+                                                .plus("\n")
+                                                .plus(requireContext().getString(R.string.please_keep_it_for_recovery_assistance))
+                                        )
+                                        alert.setPositiveButton(requireContext().getString(R.string.ok)) { _, _ ->
+                                            navController.navigate(R.id.action_registerFragment_to_loginFragment)
+                                        }
+                                        alert.show()
                                     }
-                                    alert.show()
                                 }
-                            }
                         }
                     }
                 }

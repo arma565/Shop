@@ -39,7 +39,7 @@ class ForgotFragment : Fragment() {
         navController = GlobalFunctions.getNavControllerFragmentAuth(requireActivity())
 
         binding.txtSignUp.setOnClickListener {
-            navController.navigate(ForgotFragmentDirections.actionForgotFragmentToRegisterFragment())
+            navController.navigate(R.id.action_forgotFragment_to_registerFragment)
         }
 
         CoroutineScope(IO).launch {
