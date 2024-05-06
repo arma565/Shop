@@ -18,7 +18,6 @@
             app:layout_constraintEnd_toEndOf="parent">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardNews"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_200dp"
                 android:layout_margin="@dimen/_5dp"
@@ -209,7 +208,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rec_sport" />
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rec_home"
+            android:id="@+id/recHome"
             android:layout_width="@dimen/_0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/lbl_home"

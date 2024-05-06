@@ -2,8 +2,8 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.kotlin.parcelize)
-    alias(libs.plugins.hilt.dagger)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt.dagger)
     alias(libs.plugins.kapt)
 }
 

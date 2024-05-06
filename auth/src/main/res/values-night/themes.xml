@@ -1,22 +1,4 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.Property" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/light_white</item>
-        <item name="colorPrimaryVariant">@color/light_white</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/light_white</item>
-        <item name="colorSecondaryVariant">@color/light_white</item>
-        <item name="colorOnSecondary">@android:color/darker_gray</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
-        <item name="actionOverflowButtonStyle">@style/ThreeDotColor</item>
-    </style>
-
-    <style name="ThreeDotColor" parent="Widget.AppCompat.ActionButton.Overflow">
-        <item name="tint">@color/black</item>
-    </style>
 
 </resources>

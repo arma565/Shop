@@ -18,13 +18,12 @@
         >
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/black">
 
             <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbar_main"
+                android:id="@+id/toolbarMain"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 app:title="@string/app_name"

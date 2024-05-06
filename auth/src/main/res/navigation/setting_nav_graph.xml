@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/setting_graph"
+    app:startDestination="@id/settingFragment"
+    >
+
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.auth.login.view.fragment.setting.account.AccountFragment"
+        tools:layout="@layout/fragment_account"
+        android:label="fragment_account">
+        <action
+            android:id="@+id/action_accountFragment_to_accountDataFragment"
+            app:destination="@id/accountDataFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_accountFragment_to_personalDataFragment"
+            app:destination="@id/personalDataFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/personalDataFragment"
+        android:name="com.auth.login.view.fragment.setting.account.PersonalDataFragment"
+        tools:layout="@layout/fragment_personal_data"
+        android:label="PersonalDataFragment" />
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.auth.login.view.fragment.setting.SettingFragment"
+        tools:layout="@layout/fragment_setting"
+        android:label="fragment_setting">
+        <action
+            android:id="@+id/action_settingFragment_to_helpFragment"
+            app:destination="@id/helpFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_settingFragment_to_accountFragment"
+            app:destination="@id/accountFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountDataFragment"
+        android:name="com.auth.login.view.fragment.setting.account.AccountDataFragment"
+        tools:layout="@layout/fragment_account_data"
+        android:label="AccountDataFragment" />
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="com.auth.login.view.fragment.setting.help.HelpFragment"
+        tools:layout="@layout/fragment_help"
+        android:label="fragment_help" />
+    <action
+        android:id="@+id/action_global_settingFragment"
+        app:destination="@id/settingFragment"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/fade_out" />
+</navigation>

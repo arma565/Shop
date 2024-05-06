@@ -2,9 +2,21 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/shop_graph"
     app:startDestination="@id/homeFragment">
 
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.store.shop.view.fragment.category.CategoryFragment"
+        android:label="fragment_category"
+        tools:layout="@layout/fragment_category">
+        <action
+            android:id="@+id/action_categoryFragment_to_productCategoryFragment"
+            app:destination="@id/productCategoryFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.store.shop.view.fragment.home.HomeFragment"
@@ -12,18 +24,19 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_productDetailsFragment"
-            app:destination="@id/productDetailsFragment" />
+            app:destination="@id/productDetailsFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
-    <action android:id="@+id/action_global_homeFragment" app:destination="@id/homeFragment" />
-    <fragment
-        android:id="@+id/categoryFragment"
-        android:name="com.store.shop.view.fragment.category.CategoryFragment"
-        android:label="fragment_category"
-        tools:layout="@layout/fragment_category" >
-        <action
-            android:id="@+id/action_categoryFragment_to_productCategoryFragment"
-            app:destination="@id/productCategoryFragment" />
-    </fragment>
+    <action
+        android:id="@+id/action_global_homeFragment"
+        app:destination="@id/homeFragment"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/fade_out" />
     <fragment
         android:id="@+id/productCategoryFragment"
         android:name="com.store.shop.view.fragment.productCategory.ProductCategoryFragment"
@@ -31,18 +44,34 @@
         tools:layout="@layout/fragment_product_category" >
         <action
             android:id="@+id/action_productCategoryFragment_to_productDetailsFragment"
-            app:destination="@id/productDetailsFragment" />
+            app:destination="@id/productDetailsFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/productDetailsFragment"
         android:name="com.store.shop.view.fragment.product.ProductDetailsFragment"
         android:label="fragment_product_details"
         tools:layout="@layout/fragment_product_details" />
+    <action
+        android:id="@+id/action_global_categoryFragment"
+        app:destination="@id/categoryFragment"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/fade_out" />
     <fragment
-        android:id="@+id/settingFragment"
-        android:name="com.store.shop.view.fragment.setting.SettingFragment"
-        android:label="fragment_setting"
-        tools:layout="@layout/fragment_setting" />
-    <action android:id="@+id/action_global_categoryFragment" app:destination="@id/categoryFragment" />
-    <action android:id="@+id/action_global_settingFragment" app:destination="@id/settingFragment" />
+        android:id="@+id/favoriteFragment"
+        android:name="com.store.shop.view.fragment.favorite.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" />
+    <action
+        android:id="@+id/action_global_favoriteFragment"
+        app:destination="@id/favoriteFragment"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/fade_out" />
 </navigation>

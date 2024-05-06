@@ -2,7 +2,6 @@ package com.store.shop.data.model
 
 import android.content.Context
 import android.content.Intent
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.FragmentActivity

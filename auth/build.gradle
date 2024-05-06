@@ -3,9 +3,9 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.navigation.safeargs)
     alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.hilt.dagger)
     alias(libs.plugins.kapt)
-    alias(libs.plugins.ksp)
 }
 
 android {

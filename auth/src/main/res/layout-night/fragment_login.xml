@@ -214,7 +214,7 @@
 
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/txt_forgot"
+                            android:id="@+id/txtForgot"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dimen_10"

@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/authLogin"
+    android:id="@+id/login_graph"
     app:startDestination="@id/homeAuthFragment">
 
 
@@ -94,8 +94,13 @@
 
 
     </fragment>
-
-
+    <action
+        android:id="@+id/action_global_homeAuthFragment"
+        app:destination="@id/homeAuthFragment"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/fade_out" />
 
 
 </navigation>

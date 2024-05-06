@@ -9,8 +9,8 @@
         android:id="@+id/item_category"
         android:icon="@drawable/baseline_category_24"
         />
-    <item android:title="@string/setting"
-        android:id="@+id/item_setting"
-        android:icon="@drawable/baseline_settings_24"
+    <item android:title="@string/favorite"
+        android:id="@+id/item_favorite"
+        android:icon="@drawable/baseline_favorite_24"
         />
 </menu>

@@ -4,10 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.text.Editable
 import android.text.TextWatcher
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.fragment.NavHostFragment
 import com.auth.login.R
+import com.auth.login.data.local.config.UserAutoLoginConfig
+import com.auth.login.data.local.config.UserInfoConfig
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
@@ -26,8 +29,7 @@ object GlobalFunctions {
 
     fun logIn(activity: FragmentActivity) {
         activity.finish()
-        val intentPropertyActivity =
-            Intent(activity, Class.forName("com.store.shop.view.activity.ShopActivity"))
+        val intentPropertyActivity = Intent(activity, Class.forName("com.store.shop.view.activity.ShopActivity"))
         intentPropertyActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         activity.startActivity(intentPropertyActivity, activityFadeAnimation(activity as Context))
     }
@@ -38,5 +40,18 @@ object GlobalFunctions {
         android.R.anim.fade_out
     ).toBundle()
 
+    fun logOut(activity: AppCompatActivity) {
+        activity.finish()
+        val intentPropertyActivity = Intent(activity, Class.forName("com.store.shop.view.activity.MainActivity"))
+        intentPropertyActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        activity.startActivity(intentPropertyActivity, activityFadeAnimation(activity as Context))
+        val userAutoLoginConfig = UserAutoLoginConfig(activity)
+        val userInfoConfig = UserInfoConfig(activity)
+        userAutoLoginConfig.clearAll()
+        userInfoConfig.clearAll()
+    }
+
     fun getNavControllerFragmentAuth(activity: FragmentActivity) = (activity.supportFragmentManager.findFragmentById(R.id.fragmentContainerAuth) as NavHostFragment).navController
+
+    fun getNavControllerFragmentSetting(activity: FragmentActivity) = (activity.supportFragmentManager.findFragmentById(R.id.settingContainerView) as NavHostFragment).navController
 }
