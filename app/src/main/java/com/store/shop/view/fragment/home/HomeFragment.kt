@@ -10,10 +10,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.store.shop.data.model.BaseCategory
+import com.store.shop.data.model.BaseHome
 import com.store.shop.databinding.FragmentHomeBinding
 import com.store.shop.view.fragment.home.adapter.HomeAdapter
 import com.store.shop.view.fragment.home.adapter.NewsAdapter
-import com.store.shop.viewmodel.ShopViewModel
+import com.store.shop.viewmodel.RemoteShopViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -23,7 +25,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-    private val viewModel: ShopViewModel by viewModels()
+    private val viewModel: RemoteShopViewModel by viewModels()
     private lateinit var owner: LifecycleOwner
 
     override fun onCreateView(

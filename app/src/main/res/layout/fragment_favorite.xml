@@ -8,6 +8,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recFav"
         android:layout_width="@dimen/_0dp"
         android:layout_height="@dimen/_0dp"
         app:layout_constraintBottom_toBottomOf="parent"

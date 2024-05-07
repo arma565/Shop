@@ -2,23 +2,29 @@ package com.store.shop.data.model
 
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
+@Entity(tableName = "tbl_product")
 data class Product(
-    val id: String = "",
-    val catId: String = "",
-    val catName: String = "",
-    val title: String = "",
-    val brand: String = "",
-    val garanti: String = "",
-    val count: String = "",
-    val shortDescription: String = "",
-    val fullDescription: String = "",
-    val special: String = "",
-    val discount: String = "",
-    val rate: String = "",
-    val price: String = "",
-    val icon: String = "",
-    val gallery: List<Gallery> = listOf(),
+    @PrimaryKey(autoGenerate = true)
+    var productId: Int = 0,
+    var id: String = "",
+    var catId: String = "",
+    var catName: String = "",
+    var title: String = "",
+    var brand: String = "",
+    var garanti: String = "",
+    var count: String = "",
+    var shortDescription: String = "",
+    var fullDescription: String = "",
+    var special: String = "",
+    var discount: String = "",
+    var rate: String = "",
+    var price: String = "",
+    var icon: String = "",
+    @Ignore var gallery: List<Gallery> = listOf(),
 ) : Parcelable

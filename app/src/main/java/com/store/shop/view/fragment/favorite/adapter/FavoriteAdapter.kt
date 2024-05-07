@@ -1,4 +1,4 @@
-package com.store.shop.view.fragment.home.adapter
+package com.store.shop.view.fragment.favorite.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,26 +11,28 @@ import com.store.shop.R
 import com.store.shop.data.config.FavoriteProductConfig
 import com.store.shop.data.model.GlobalFunctions
 import com.store.shop.data.model.Product
-import com.store.shop.databinding.HomeRowBinding
+import com.store.shop.databinding.FavRowBinding
 
-class HomeAdapter(private val activity: FragmentActivity, private val list: List<Product>) :
-    RecyclerView.Adapter<HomeAdapter.HomeVH>() {
+class FavoriteAdapter(
+    private val activity: FragmentActivity,
+    private val list: List<Product>
+) :
+    RecyclerView.Adapter<FavoriteAdapter.FavoriteVH>() {
 
+    private lateinit var binding: FavRowBinding
 
-    private lateinit var binding: HomeRowBinding
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeVH {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteVH {
         binding = DataBindingUtil.bind(
-            LayoutInflater.from(parent.context).inflate(R.layout.home_row, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.fav_row, parent, false)
         )!!
-        return HomeVH(binding)
+        return FavoriteVH(binding)
     }
 
-    class HomeVH(binding: HomeRowBinding) : RecyclerView.ViewHolder(binding.root)
+    class FavoriteVH(binding: FavRowBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun getItemCount(): Int = list.size
 
-    override fun onBindViewHolder(holder: HomeVH, position: Int) {
+    override fun onBindViewHolder(holder: FavoriteVH, position: Int) {
         val product = list[position]
         binding.product = product
 
@@ -38,11 +40,12 @@ class HomeAdapter(private val activity: FragmentActivity, private val list: List
         Glide.with(activity).load(product.icon).into(binding.imgProduct)
 
         binding.cardView.setOnClickListener {
-            FavoriteProductConfig(activity).save(0)
+            FavoriteProductConfig(activity).save(1)
             GlobalFunctions.getNavControllerFragment(activity).navigate(
-                R.id.action_homeFragment_to_productDetailsFragment,
+                R.id.action_favoriteFragment_to_productDetailsFragment,
                 bundleOf("product" to product)
             )
         }
     }
+
 }

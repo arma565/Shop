@@ -14,14 +14,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.store.shop.data.model.Category
 import com.store.shop.databinding.FragmentProductCategoryBinding
 import com.store.shop.view.fragment.productCategory.adapter.ProductCategoryAdapter
-import com.store.shop.viewmodel.ShopViewModel
+import com.store.shop.viewmodel.RemoteShopViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @Suppress("DEPRECATION")
 @AndroidEntryPoint
 class ProductCategoryFragment : Fragment() {
     private lateinit var binding: FragmentProductCategoryBinding
-    private val viewModel: ShopViewModel by viewModels()
+    private val viewModel: RemoteShopViewModel by viewModels()
     private lateinit var owner: LifecycleOwner
     private lateinit var category: Category
 

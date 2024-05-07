@@ -12,13 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.store.shop.databinding.FragmentCategoryBinding
 import com.store.shop.view.fragment.category.adapter.CategoryAdapter
-import com.store.shop.viewmodel.ShopViewModel
+import com.store.shop.viewmodel.RemoteShopViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CategoryFragment : Fragment() {
     private lateinit var binding: FragmentCategoryBinding
-    private val viewModel: ShopViewModel by viewModels()
+    private val viewModel: RemoteShopViewModel by viewModels()
     private lateinit var owner: LifecycleOwner
 
     override fun onAttach(context: Context) {
