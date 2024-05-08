@@ -1,9 +1,6 @@
 package com.network.state
 
-interface INetworkStateManager {
-
-    fun connect(listener : IResponseEvent<Boolean>)
-
-    fun checkNetwork(listener : IResponseEvent<Boolean>)
-
+internal interface INetworkStateManager {
+    fun start(listener : IResponseEvent)
+    fun stop(listener : IResponseEvent)
 }

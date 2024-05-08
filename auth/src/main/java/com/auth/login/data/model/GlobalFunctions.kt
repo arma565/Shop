@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.FragmentActivity
@@ -13,6 +14,8 @@ import com.auth.login.data.local.config.UserAutoLoginConfig
 import com.auth.login.data.local.config.UserInfoConfig
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.network.state.IResponseEvent
+import com.network.state.NetworkStateManager
 
 object GlobalFunctions {
     fun layoutEdtEndIconMode(layout: TextInputLayout, edt: TextInputEditText) {
@@ -49,6 +52,29 @@ object GlobalFunctions {
         val userInfoConfig = UserInfoConfig(activity)
         userAutoLoginConfig.clearAll()
         userInfoConfig.clearAll()
+    }
+
+    fun checkNetwork(context: Context , activity: AppCompatActivity){
+        try {
+            NetworkStateManager(context,activity).start(object :
+                IResponseEvent {
+                override fun state(state: Boolean) {
+                    if (!state){
+                        Toast.makeText(context,"No internet connection",
+                            Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun serverState(state: Boolean) {
+                    if (!state){
+                        Toast.makeText(context,"Server is not available",
+                            Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+        }catch (e : Exception){
+            Toast.makeText(context,"Unknown system error! $e", Toast.LENGTH_LONG).show()
+        }
     }
 
     fun getNavControllerFragmentAuth(activity: FragmentActivity) = (activity.supportFragmentManager.findFragmentById(R.id.fragmentContainerAuth) as NavHostFragment).navController

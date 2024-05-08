@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.androidx.test.core)
     implementation(libs.androidx.junit)
     implementation(libs.androidx.activity)
+    implementation project(':network_state')
     testImplementation(libs.junit)
     androidTestImplementation(libs.junit)
     androidTestImplementation(libs.androidx.arch)

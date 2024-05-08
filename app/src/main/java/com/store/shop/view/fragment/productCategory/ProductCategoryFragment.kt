@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.auth.login.data.model.IProgressbarState
 import com.store.shop.data.model.Category
 import com.store.shop.databinding.FragmentProductCategoryBinding
 import com.store.shop.view.fragment.productCategory.adapter.ProductCategoryAdapter
@@ -19,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @Suppress("DEPRECATION")
 @AndroidEntryPoint
-class ProductCategoryFragment : Fragment() {
+class ProductCategoryFragment : Fragment(), IProgressbarState {
     private lateinit var binding: FragmentProductCategoryBinding
     private val viewModel: RemoteShopViewModel by viewModels()
     private lateinit var owner: LifecycleOwner
@@ -46,13 +47,21 @@ class ProductCategoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        this@ProductCategoryFragment.onShowProgressBar()
         viewModel.getProductCategory(category.id).observe(owner) { baseProductCategory ->
+            this@ProductCategoryFragment.onHideProgressBar()
             binding.recProductCategory.adapter =
                 ProductCategoryAdapter(requireActivity(), baseProductCategory.products)
             binding.recProductCategory.layoutManager =
                 GridLayoutManager(requireContext(), 2, RecyclerView.VERTICAL, false)
         }
 
+    }
+    override fun onShowProgressBar() {
+        binding.progressBar.visibility = View.VISIBLE
+    }
+
+    override fun onHideProgressBar() {
+        binding.progressBar.visibility = View.GONE
     }
 }

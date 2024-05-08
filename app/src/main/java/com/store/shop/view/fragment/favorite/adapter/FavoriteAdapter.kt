@@ -40,7 +40,6 @@ class FavoriteAdapter(
         Glide.with(activity).load(product.icon).into(binding.imgProduct)
 
         binding.cardView.setOnClickListener {
-            FavoriteProductConfig(activity).save(1)
             GlobalFunctions.getNavControllerFragment(activity).navigate(
                 R.id.action_favoriteFragment_to_productDetailsFragment,
                 bundleOf("product" to product)

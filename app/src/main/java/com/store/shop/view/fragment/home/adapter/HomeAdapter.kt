@@ -38,7 +38,6 @@ class HomeAdapter(private val activity: FragmentActivity, private val list: List
         Glide.with(activity).load(product.icon).into(binding.imgProduct)
 
         binding.cardView.setOnClickListener {
-            FavoriteProductConfig(activity).save(0)
             GlobalFunctions.getNavControllerFragment(activity).navigate(
                 R.id.action_homeFragment_to_productDetailsFragment,
                 bundleOf("product" to product)

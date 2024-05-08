@@ -22,6 +22,10 @@ class ShopActivity : AppCompatActivity() {
         val binding = ActivityShopBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        com.auth.login.data.model.GlobalFunctions.checkNetwork(
+            applicationContext,
+            this@ShopActivity
+        )
         setSupportActionBar(binding.toolbarMain)
 
         (this@ShopActivity as MenuHost).addMenuProvider(object : MenuProvider {

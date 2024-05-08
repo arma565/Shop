@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.auth.login.data.model.IProgressbarState
 import com.store.shop.databinding.FragmentFavoriteBinding
 import com.store.shop.view.fragment.favorite.adapter.FavoriteAdapter
 import com.store.shop.viewmodel.LocalShopViewModel
@@ -21,7 +22,7 @@ import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class FavoriteFragment : Fragment() {
+class FavoriteFragment : Fragment(), IProgressbarState {
     private lateinit var binding: FragmentFavoriteBinding
     private lateinit var owner: LifecycleOwner
     private val localShopViewModel: LocalShopViewModel by viewModels()
@@ -41,15 +42,24 @@ class FavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        this@FavoriteFragment.onShowProgressBar()
         CoroutineScope(IO).launch {
             localShopViewModel.productList().collect { faveProductList ->
                 this.launch(Main) {
+                    this@FavoriteFragment.onHideProgressBar()
                     binding.recFav.adapter = FavoriteAdapter(requireActivity(), faveProductList)
                     binding.recFav.layoutManager =
                         GridLayoutManager(requireContext(), 2, RecyclerView.VERTICAL, false)
                 }
             }
         }
+    }
+
+    override fun onShowProgressBar() {
+        binding.progressBar.visibility = View.VISIBLE
+    }
+
+    override fun onHideProgressBar() {
+        binding.progressBar.visibility = View.GONE
     }
 }

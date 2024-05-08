@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
+import com.auth.login.data.model.IProgressbarState
 import com.store.shop.R
 import com.store.shop.data.model.GlobalFunctions
 import com.store.shop.data.model.Product
@@ -28,7 +29,7 @@ import kotlinx.coroutines.runBlocking
 
 @Suppress("DEPRECATION")
 @AndroidEntryPoint
-class ProductDetailsFragment : Fragment() {
+class ProductDetailsFragment : Fragment(),IProgressbarState {
 
     private lateinit var binding: FragmentProductDetailsBinding
     private lateinit var product: Product
@@ -62,6 +63,7 @@ class ProductDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        this@ProductDetailsFragment.onShowProgressBar()
         var list: List<Product> = listOf()
         val job = CoroutineScope(Dispatchers.IO).launch LaunchIO@{
             localViewModel.productList().collect {
@@ -70,6 +72,7 @@ class ProductDetailsFragment : Fragment() {
         }
         runBlocking {
             job.join()
+            this@ProductDetailsFragment.onHideProgressBar()
             if (list.any { faveProduct -> faveProduct.id == product.id }) {
                 binding.imgFav.setImageResource(R.drawable.baseline_favorite_24)
                 return@runBlocking
@@ -142,5 +145,15 @@ class ProductDetailsFragment : Fragment() {
         }
 
 
+
     }
+
+    override fun onShowProgressBar() {
+        binding.progressBar.visibility = View.VISIBLE
+    }
+
+    override fun onHideProgressBar() {
+        binding.progressBar.visibility = View.GONE
+    }
+
 }

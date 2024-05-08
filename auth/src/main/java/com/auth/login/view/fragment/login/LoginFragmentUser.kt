@@ -15,6 +15,7 @@ import com.auth.login.R
 import com.auth.login.data.local.config.UserAutoLoginConfig
 import com.auth.login.data.local.config.UserInfoConfig
 import com.auth.login.data.model.GlobalFunctions
+import com.auth.login.data.model.IProgressbarState
 import com.auth.login.data.model.User
 import com.auth.login.databinding.FragmentLoginBinding
 import com.auth.login.viewmodel.AuthNetworkViewModel
@@ -26,7 +27,7 @@ import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class LoginFragmentUser : Fragment() {
+class LoginFragmentUser : Fragment() , IProgressbarState {
     private lateinit var binding: FragmentLoginBinding
     private lateinit var navController: NavController
     private lateinit var owner: LifecycleOwner
@@ -49,6 +50,8 @@ class LoginFragmentUser : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
 
         GlobalFunctions.layoutEdtEndIconMode(binding.layoutUserEmailLogin, binding.edtEmail)
         GlobalFunctions.layoutEdtEndIconMode(binding.layoutPassword, binding.edtPassword)
@@ -80,8 +83,10 @@ class LoginFragmentUser : Fragment() {
                         val foundUser: User =
                             userList.first { it.email == user.email && it.password == user.password }
                         this.launch(Main) {
+                            this@LoginFragmentUser.onShowProgressBar()
                             networkViewModel.login(user.email!!, user.password!!)
                                 .observe(owner) { res ->
+                                    this@LoginFragmentUser.onHideProgressBar()
                                     if (res <= "0") {
                                         Toast.makeText(
                                             activity,
@@ -132,5 +137,13 @@ class LoginFragmentUser : Fragment() {
                 return true
             }
         }
+    }
+
+    override fun onShowProgressBar() {
+        binding.progressBar.visibility = View.VISIBLE
+    }
+
+    override fun onHideProgressBar() {
+        binding.progressBar.visibility = View.GONE
     }
 }

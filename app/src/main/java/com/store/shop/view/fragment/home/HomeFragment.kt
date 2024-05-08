@@ -10,8 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.store.shop.data.model.BaseCategory
-import com.store.shop.data.model.BaseHome
+import com.auth.login.data.model.IProgressbarState
 import com.store.shop.databinding.FragmentHomeBinding
 import com.store.shop.view.fragment.home.adapter.HomeAdapter
 import com.store.shop.view.fragment.home.adapter.NewsAdapter
@@ -23,7 +22,7 @@ import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), IProgressbarState {
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: RemoteShopViewModel by viewModels()
     private lateinit var owner: LifecycleOwner
@@ -57,13 +56,17 @@ class HomeFragment : Fragment() {
             }
         }
 
+        this@HomeFragment.onShowProgressBar()
         viewModel.getBaseHome().observe(owner) { baseHome ->
-            viewModel.getCategory().observe(owner){baseCategory->
+            viewModel.getCategory().observe(owner) { baseCategory ->
+                this@HomeFragment.onHideProgressBar()
                 binding.recAmazing.adapter = HomeAdapter(requireActivity(), baseHome.amazingOffer)
-                binding.recAmazing.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+                binding.recAmazing.layoutManager =
+                    LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
 
                 binding.recDiscount.adapter = HomeAdapter(requireActivity(), baseHome.discount)
-                binding.recDiscount.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+                binding.recDiscount.layoutManager =
+                    LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
 
                 binding.recMobiles.adapter = HomeAdapter(requireActivity(), baseHome.mobile)
                 binding.recMobiles.layoutManager =
@@ -74,14 +77,25 @@ class HomeFragment : Fragment() {
                     LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
 
                 binding.recStyle.adapter = HomeAdapter(requireActivity(), baseCategory.mode)
-                binding.recStyle.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+                binding.recStyle.layoutManager =
+                    LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
 
                 binding.recSport.adapter = HomeAdapter(requireActivity(), baseCategory.sport)
-                binding.recSport.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+                binding.recSport.layoutManager =
+                    LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
 
                 binding.recHome.adapter = HomeAdapter(requireActivity(), baseCategory.home)
-                binding.recHome.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+                binding.recHome.layoutManager =
+                    LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
             }
         }
+    }
+
+    override fun onShowProgressBar() {
+        binding.progressBar.visibility = View.VISIBLE
+    }
+
+    override fun onHideProgressBar() {
+        binding.progressBar.visibility = View.GONE
     }
 }

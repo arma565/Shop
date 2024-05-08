@@ -5,7 +5,6 @@ import com.store.shop.data.model.BaseCategory
 import com.store.shop.data.model.BaseHome
 import com.store.shop.data.model.BaseProductCategory
 import com.store.shop.data.model.New
-import com.store.shop.data.model.Product
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET

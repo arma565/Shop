@@ -14,6 +14,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import com.auth.login.R
 import com.auth.login.data.model.GlobalFunctions
+import com.auth.login.data.model.IProgressbarState
 import com.auth.login.data.model.User
 import com.auth.login.databinding.FragmentRegisterBinding
 import com.auth.login.viewmodel.AuthNetworkViewModel
@@ -25,7 +26,7 @@ import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class RegisterFragmentUser : Fragment() {
+class RegisterFragmentUser : Fragment() , IProgressbarState {
     private lateinit var binding: FragmentRegisterBinding
     private lateinit var navController: NavController
     private lateinit var owner: LifecycleOwner
@@ -80,8 +81,10 @@ class RegisterFragmentUser : Fragment() {
                                 ).show()
                                 return@LaunchMain
                             }
+                            this@RegisterFragmentUser.onShowProgressBar()
                             networkViewModel.register(user.email!!, user.password!!)
                                 .observe(owner) { res ->
+                                    this@RegisterFragmentUser.onHideProgressBar()
                                     if (res <= 0) {
                                         Toast.makeText(
                                             activity,
@@ -147,5 +150,13 @@ class RegisterFragmentUser : Fragment() {
                 return true
             }
         }
+    }
+
+    override fun onShowProgressBar() {
+        binding.progressBar.visibility = View.VISIBLE
+    }
+
+    override fun onHideProgressBar() {
+        binding.progressBar.visibility = View.GONE
     }
 }

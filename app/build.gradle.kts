@@ -57,6 +57,7 @@ dependencies {
     implementation(libs.androidx.junit)
     implementation(libs.androidx.activity)
     implementation(project(":auth"))
+    implementation(project(":network_state"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.junit)
     androidTestImplementation(libs.androidx.arch)

@@ -76,7 +76,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:id="@+id/txt_register"
                                 android:layout_width="wrap_content"
-                                android:layout_height="50dp"
+                                android:layout_height="@dimen/dimen_50dp"
                                 android:layout_margin="16dp"
                                 android:inputType="text"
                                 android:text="@string/register"
@@ -126,7 +126,7 @@
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:id="@+id/edtEmail"
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
+                                    android:layout_height="@dimen/dimen_50dp"
                                     android:textStyle="bold"
                                     android:hint="@string/email_address"
                                     android:textColor="@color/black"
@@ -149,7 +149,7 @@
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:id="@+id/edtPassword"
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
+                                    android:layout_height="@dimen/dimen_50dp"
                                     android:inputType="textPassword"
                                     android:textColor="@color/black"
                                     android:textStyle="bold"
@@ -173,7 +173,7 @@
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:id="@+id/edtConfirm"
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
+                                    android:layout_height="@dimen/dimen_50dp"
                                     android:inputType="textPassword"
                                     android:textColor="@color/black"
                                     android:textStyle="bold"
@@ -257,6 +257,16 @@
 
 
         </androidx.cardview.widget.CardView>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="@dimen/_200"
+            android:layout_height="@dimen/dimen_16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
