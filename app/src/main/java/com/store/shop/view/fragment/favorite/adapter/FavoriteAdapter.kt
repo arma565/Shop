@@ -8,7 +8,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.store.shop.R
-import com.store.shop.data.config.FavoriteProductConfig
 import com.store.shop.data.model.GlobalFunctions
 import com.store.shop.data.model.Product
 import com.store.shop.databinding.FavRowBinding
