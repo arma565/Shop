@@ -52,15 +52,14 @@ dependencies {
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)
     implementation(libs.preference.ktx)
+    implementation(libs.androidx.activity)
     implementation(libs.joda.time)
     implementation(libs.androidx.test.core)
     implementation(libs.androidx.junit)
-    implementation(libs.androidx.activity)
-    implementation(project(":auth"))
-    implementation(project(":network_state"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.junit)
     androidTestImplementation(libs.androidx.arch)
+    androidTestImplementation(libs.androidx.espresso.core)
     testImplementation(libs.mockito.core)
     androidTestImplementation(libs.mockito.android)
     implementation(libs.multidex)
@@ -92,5 +91,8 @@ dependencies {
 
     implementation(libs.retrofit2)
     implementation(libs.retrofit2.converter.gson)
+
+    implementation(project(":auth"))
+    implementation(project(":network_state"))
 
 }

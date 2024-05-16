@@ -55,8 +55,8 @@ class ProductCategoryFragment : Fragment(), IProgressbarState {
             binding.recProductCategory.layoutManager =
                 GridLayoutManager(requireContext(), 2, RecyclerView.VERTICAL, false)
         }
-
     }
+
     override fun onShowProgressBar() {
         binding.progressBar.visibility = View.VISIBLE
     }

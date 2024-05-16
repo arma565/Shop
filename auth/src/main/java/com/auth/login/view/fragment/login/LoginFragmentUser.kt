@@ -27,7 +27,7 @@ import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class LoginFragmentUser : Fragment() , IProgressbarState {
+class LoginFragmentUser : Fragment(), IProgressbarState {
     private lateinit var binding: FragmentLoginBinding
     private lateinit var navController: NavController
     private lateinit var owner: LifecycleOwner
@@ -85,26 +85,27 @@ class LoginFragmentUser : Fragment() , IProgressbarState {
                         this.launch(Main) {
                             this@LoginFragmentUser.onShowProgressBar()
                             try {
-
-                            }catch (e : Error){
+                                networkViewModel.login(user.email!!, user.password!!)
+                                    .observe(owner) {
+                                        if (it == "0") throw Error()
+                                        this@LoginFragmentUser.onHideProgressBar()
+                                        val userAutoLoginConfig =
+                                            UserAutoLoginConfig(requireActivity())
+                                        val userInfoConfig = UserInfoConfig(requireActivity())
+                                        if (binding.checkBoxRemember.isChecked) {
+                                            userAutoLoginConfig.save(foundUser)
+                                            userInfoConfig.save(foundUser)
+                                        }
+                                        userInfoConfig.save(foundUser)
+                                        GlobalFunctions.logIn(requireActivity())
+                                    }
+                            } catch (e: Error) {
                                 Toast.makeText(
                                     activity,
                                     getString(R.string.un_success),
                                     Toast.LENGTH_LONG
                                 ).show()
                             }
-                            networkViewModel.login(user.email!!, user.password!!)
-                                .observe(owner) {
-                                    this@LoginFragmentUser.onHideProgressBar()
-                                    val userAutoLoginConfig = UserAutoLoginConfig(requireActivity())
-                                    val userInfoConfig = UserInfoConfig(requireActivity())
-                                    if (binding.checkBoxRemember.isChecked) {
-                                        userAutoLoginConfig.save(foundUser)
-                                        userInfoConfig.save(foundUser)
-                                    }
-                                    userInfoConfig.save(foundUser)
-                                    GlobalFunctions.logIn(requireActivity())
-                                }
                         }
                     }
                 }

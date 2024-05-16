@@ -3,6 +3,7 @@ package com.auth.login.view.fragment.register
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -85,6 +86,7 @@ class RegisterFragmentUser : Fragment() , IProgressbarState {
                             try {
                                 networkViewModel.register(user.email!!, user.password!!)
                                     .observe(owner) {
+                                        if (it == 0.0) throw Error()
                                         this@RegisterFragmentUser.onHideProgressBar()
                                         viewModel.upsertUser(user)
                                         val alert: AlertDialog.Builder = AlertDialog.Builder(requireContext())

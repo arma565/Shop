@@ -34,7 +34,7 @@ import kotlinx.coroutines.runBlocking
 
 @Suppress("DEPRECATION")
 @AndroidEntryPoint
-class ProductDetailsFragment : Fragment(),IProgressbarState {
+class ProductDetailsFragment : Fragment(), IProgressbarState {
 
     private lateinit var binding: FragmentProductDetailsBinding
     private lateinit var product: Product
@@ -118,13 +118,13 @@ class ProductDetailsFragment : Fragment(),IProgressbarState {
         val myActivity = requireActivity() as AppCompatActivity
         binding.toolbarProduct.title = ""
         myActivity.setSupportActionBar(binding.toolbarProduct)
-        (myActivity as MenuHost).addMenuProvider(object : MenuProvider{
+        (myActivity as MenuHost).addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menu.clear()
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-               return false
+                return false
             }
 
         })
@@ -158,7 +158,6 @@ class ProductDetailsFragment : Fragment(),IProgressbarState {
             dialog.setView(binding.root)
             dialog.show()
         }
-
 
 
     }

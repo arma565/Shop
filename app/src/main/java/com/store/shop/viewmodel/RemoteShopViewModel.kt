@@ -16,9 +16,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
@@ -49,20 +46,9 @@ class RemoteShopViewModel @Inject constructor(
      */
     fun getCategories(): LiveData<BaseCategories> {
         getCategoriesLiveData = MutableLiveData()
-        remoteShopRepository.getCategories().enqueue(object : Callback<BaseCategories> {
-            override fun onResponse(
-                call: Call<BaseCategories>,
-                response: Response<BaseCategories>
-            ) {
-                getCategoriesLiveData.postValue(response.body())
-            }
-
-            override fun onFailure(call: Call<BaseCategories>, p1: Throwable) {
-                getCategoriesLiveData.postValue(BaseCategories())
-            }
-
-        })
-
+        viewModelScope.launch(IO) {
+            getCategoriesLiveData.postValue(remoteShopRepository.getCategories().body())
+        }
         return getCategoriesLiveData
     }
 
@@ -72,16 +58,9 @@ class RemoteShopViewModel @Inject constructor(
      */
     fun getCategory(): LiveData<BaseCategory> {
         getCategoryLiveData = MutableLiveData()
-        remoteShopRepository.getCategory().enqueue(object : Callback<BaseCategory> {
-            override fun onResponse(call: Call<BaseCategory>, response: Response<BaseCategory>) {
-                getCategoryLiveData.postValue(response.body())
-            }
-
-            override fun onFailure(call: Call<BaseCategory>, p1: Throwable) {
-                getCategoryLiveData.postValue(BaseCategory())
-            }
-
-        })
+        viewModelScope.launch(IO) {
+            getCategoryLiveData.postValue(remoteShopRepository.getCategory().body())
+        }
         return getCategoryLiveData
     }
 
@@ -91,20 +70,11 @@ class RemoteShopViewModel @Inject constructor(
      */
     fun getProductCategory(catId: String): LiveData<BaseProductCategory> {
         getProductCategoryLiveData = MutableLiveData()
-        remoteShopRepository.getProductCategory(catId)
-            .enqueue(object : Callback<BaseProductCategory> {
-                override fun onResponse(
-                    call: Call<BaseProductCategory>,
-                    response: Response<BaseProductCategory>
-                ) {
-                    getProductCategoryLiveData.postValue(response.body())
-                }
-
-                override fun onFailure(call: Call<BaseProductCategory>, p1: Throwable) {
-                    getProductCategoryLiveData.postValue(BaseProductCategory())
-                }
-
-            })
+        viewModelScope.launch(IO) {
+            getProductCategoryLiveData.postValue(
+                remoteShopRepository.getProductCategory(catId).body()
+            )
+        }
         return getProductCategoryLiveData
     }
 
@@ -114,16 +84,9 @@ class RemoteShopViewModel @Inject constructor(
      */
     fun getBaseHome(): LiveData<BaseHome> {
         getBaseHomeLiveData = MutableLiveData()
-        remoteShopRepository.getBaseHome().enqueue(object : Callback<BaseHome> {
-            override fun onResponse(call: Call<BaseHome>, response: Response<BaseHome>) {
-                getBaseHomeLiveData.postValue(response.body())
-            }
-
-            override fun onFailure(call: Call<BaseHome>, p1: Throwable) {
-                getBaseHomeLiveData.postValue(BaseHome())
-            }
-
-        })
+        viewModelScope.launch(IO) {
+            getBaseHomeLiveData.postValue(remoteShopRepository.getBaseHome().body())
+        }
         return getBaseHomeLiveData
     }
 
@@ -133,19 +96,9 @@ class RemoteShopViewModel @Inject constructor(
      */
     fun searchProduct(title: String): LiveData<BaseProductCategory> {
         searchProductLiveData = MutableLiveData()
-        remoteShopRepository.search(title).enqueue(object : Callback<BaseProductCategory> {
-            override fun onResponse(
-                call: Call<BaseProductCategory>,
-                response: Response<BaseProductCategory>
-            ) {
-                searchProductLiveData.postValue(response.body())
-            }
-
-            override fun onFailure(call: Call<BaseProductCategory>, p1: Throwable) {
-                searchProductLiveData.postValue(BaseProductCategory())
-            }
-
-        })
+        viewModelScope.launch(IO) {
+            searchProductLiveData.postValue(remoteShopRepository.search(title).body())
+        }
         return searchProductLiveData
     }
 

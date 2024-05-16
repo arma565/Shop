@@ -2,7 +2,6 @@ package com.store.shop.view.fragment.home
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +17,6 @@ import com.store.shop.view.fragment.home.adapter.NewsAdapter
 import com.store.shop.viewmodel.RemoteShopViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 
@@ -47,13 +45,11 @@ class HomeFragment : Fragment(), IProgressbarState {
         super.onViewCreated(view, savedInstanceState)
 
 
-        CoroutineScope(IO).launch LaunchIO@{
+        CoroutineScope(Main).launch {
             viewModel.getNews().collect { newsList ->
-                this.launch(Main) {
-                    if (newsList.isEmpty()) return@launch
-                    binding.viewPager2.adapter = NewsAdapter(newsList)
-                    binding.springDotsIndicator.attachTo(binding.viewPager2)
-                }
+                if (newsList.isEmpty()) return@collect
+                binding.viewPager2.adapter = NewsAdapter(newsList)
+                binding.springDotsIndicator.attachTo(binding.viewPager2)
             }
         }
 
@@ -61,7 +57,6 @@ class HomeFragment : Fragment(), IProgressbarState {
         viewModel.getBaseHome().observe(owner) { baseHome ->
             viewModel.getCategory().observe(owner) { baseCategory ->
                 this@HomeFragment.onHideProgressBar()
-                Log.d("TAG", "onViewCreated: ")
                 binding.recAmazing.adapter = HomeAdapter(requireActivity(), baseHome.amazingOffer)
                 binding.recAmazing.layoutManager =
                     LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
@@ -91,6 +86,7 @@ class HomeFragment : Fragment(), IProgressbarState {
                     LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
             }
         }
+
     }
 
     override fun onShowProgressBar() {

@@ -16,17 +16,17 @@ interface ApiService {
     suspend fun getNews(): Response<List<New>>
 
     @GET("getCategories.php")
-    fun getCategories(): Call<BaseCategories>
+    suspend fun getCategories(): Response<BaseCategories>
 
     @GET("getCategory.php")
-    fun getCategory(): Call<BaseCategory>
+    suspend fun getCategory(): Response<BaseCategory>
 
     @GET("getProductCategory.php")
-    fun getProductCategory(@Query("catId") catId: String): Call<BaseProductCategory>
+    suspend fun getProductCategory(@Query("catId") catId: String): Response<BaseProductCategory>
 
     @GET("home.php")
-    fun getBaseHome(): Call<BaseHome>
+    suspend fun getBaseHome(): Response<BaseHome>
 
     @GET("search.php")
-    fun searchProduct(@Query("title") title: String): Call<BaseProductCategory>
+    suspend fun searchProduct(@Query("title") title: String): Response<BaseProductCategory>
 }
