@@ -108,7 +108,7 @@ class SettingFragment : Fragment() {
         val backCallBackBtn = object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
                 requireActivity().finish()
-                val intentPropertyActivity = Intent(activity, Class.forName("com.store.shop.view.activity.ShopActivity"))
+                val intentPropertyActivity = Intent(activity, Class.forName("com.store.shop.view.activity.MainActivity"))
                 intentPropertyActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 requireActivity().startActivity(intentPropertyActivity)
             }

@@ -2,6 +2,7 @@ package com.store.shop.view.fragment.home
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,6 +61,7 @@ class HomeFragment : Fragment(), IProgressbarState {
         viewModel.getBaseHome().observe(owner) { baseHome ->
             viewModel.getCategory().observe(owner) { baseCategory ->
                 this@HomeFragment.onHideProgressBar()
+                Log.d("TAG", "onViewCreated: ")
                 binding.recAmazing.adapter = HomeAdapter(requireActivity(), baseHome.amazingOffer)
                 binding.recAmazing.layoutManager =
                     LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)

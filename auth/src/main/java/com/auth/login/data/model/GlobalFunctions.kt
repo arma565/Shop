@@ -12,6 +12,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.auth.login.R
 import com.auth.login.data.local.config.UserAutoLoginConfig
 import com.auth.login.data.local.config.UserInfoConfig
+import com.auth.login.view.activity.LoginMainActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.network.state.IResponseEvent
@@ -32,7 +33,8 @@ object GlobalFunctions {
 
     fun logIn(activity: FragmentActivity) {
         activity.finish()
-        val intentPropertyActivity = Intent(activity, Class.forName("com.store.shop.view.activity.ShopActivity"))
+        val intentPropertyActivity =
+            Intent(activity, Class.forName("com.store.shop.view.activity.MainActivity"))
         intentPropertyActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         activity.startActivity(intentPropertyActivity, activityFadeAnimation(activity as Context))
     }
@@ -45,7 +47,7 @@ object GlobalFunctions {
 
     fun logOut(activity: AppCompatActivity) {
         activity.finish()
-        val intentPropertyActivity = Intent(activity, Class.forName("com.store.shop.view.activity.MainActivity"))
+        val intentPropertyActivity = Intent(activity, LoginMainActivity::class.java)
         intentPropertyActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         activity.startActivity(intentPropertyActivity, activityFadeAnimation(activity as Context))
         val userAutoLoginConfig = UserAutoLoginConfig(activity)
@@ -54,30 +56,36 @@ object GlobalFunctions {
         userInfoConfig.clearAll()
     }
 
-    fun checkNetwork(context: Context , activity: AppCompatActivity){
+    fun checkNetwork(context: Context, activity: AppCompatActivity) {
         try {
-            NetworkStateManager(context,activity).start(object :
+            NetworkStateManager(context, activity).start(object :
                 IResponseEvent {
                 override fun state(state: Boolean) {
-                    if (!state){
-                        Toast.makeText(context,"No internet connection",
-                            Toast.LENGTH_SHORT).show()
+                    if (!state) {
+                        Toast.makeText(
+                            context, "No internet connection",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
 
                 override fun serverState(state: Boolean) {
-                    if (!state){
-                        Toast.makeText(context,"Server is not available",
-                            Toast.LENGTH_SHORT).show()
+                    if (!state) {
+                        Toast.makeText(
+                            context, "Server is not available",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             })
-        }catch (e : Exception){
-            Toast.makeText(context,"Unknown system error! $e", Toast.LENGTH_LONG).show()
+        } catch (e: Exception) {
+            Toast.makeText(context, "Unknown system error! $e", Toast.LENGTH_LONG).show()
         }
     }
 
-    fun getNavControllerFragmentAuth(activity: FragmentActivity) = (activity.supportFragmentManager.findFragmentById(R.id.fragmentContainerAuth) as NavHostFragment).navController
+    fun getNavControllerFragmentAuth(activity: FragmentActivity) =
+        (activity.supportFragmentManager.findFragmentById(R.id.fragmentContainerAuth) as NavHostFragment).navController
 
-    fun getNavControllerFragmentSetting(activity: FragmentActivity) = (activity.supportFragmentManager.findFragmentById(R.id.settingContainerView) as NavHostFragment).navController
+    fun getNavControllerFragmentSetting(activity: FragmentActivity) =
+        (activity.supportFragmentManager.findFragmentById(R.id.settingContainerView) as NavHostFragment).navController
 }

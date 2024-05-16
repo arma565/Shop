@@ -84,26 +84,26 @@ class LoginFragmentUser : Fragment() , IProgressbarState {
                             userList.first { it.email == user.email && it.password == user.password }
                         this.launch(Main) {
                             this@LoginFragmentUser.onShowProgressBar()
+                            try {
+
+                            }catch (e : Error){
+                                Toast.makeText(
+                                    activity,
+                                    getString(R.string.un_success),
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
                             networkViewModel.login(user.email!!, user.password!!)
-                                .observe(owner) { res ->
+                                .observe(owner) {
                                     this@LoginFragmentUser.onHideProgressBar()
-                                    if (res <= "0") {
-                                        Toast.makeText(
-                                            activity,
-                                            getString(R.string.un_success),
-                                            Toast.LENGTH_LONG
-                                        ).show()
-                                        return@observe
-                                    }else{
-                                        val userAutoLoginConfig = UserAutoLoginConfig(requireActivity())
-                                        val userInfoConfig = UserInfoConfig(requireActivity())
-                                        if (binding.checkBoxRemember.isChecked) {
-                                            userAutoLoginConfig.save(foundUser)
-                                            userInfoConfig.save(foundUser)
-                                        }
+                                    val userAutoLoginConfig = UserAutoLoginConfig(requireActivity())
+                                    val userInfoConfig = UserInfoConfig(requireActivity())
+                                    if (binding.checkBoxRemember.isChecked) {
+                                        userAutoLoginConfig.save(foundUser)
                                         userInfoConfig.save(foundUser)
-                                        GlobalFunctions.logIn(requireActivity())
                                     }
+                                    userInfoConfig.save(foundUser)
+                                    GlobalFunctions.logIn(requireActivity())
                                 }
                         }
                     }

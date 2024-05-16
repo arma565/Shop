@@ -82,17 +82,10 @@ class RegisterFragmentUser : Fragment() , IProgressbarState {
                                 return@LaunchMain
                             }
                             this@RegisterFragmentUser.onShowProgressBar()
-                            networkViewModel.register(user.email!!, user.password!!)
-                                .observe(owner) { res ->
-                                    this@RegisterFragmentUser.onHideProgressBar()
-                                    if (res <= 0) {
-                                        Toast.makeText(
-                                            activity,
-                                            getString(R.string.un_success),
-                                            Toast.LENGTH_LONG
-                                        ).show()
-                                        return@observe
-                                    }else{
+                            try {
+                                networkViewModel.register(user.email!!, user.password!!)
+                                    .observe(owner) {
+                                        this@RegisterFragmentUser.onHideProgressBar()
                                         viewModel.upsertUser(user)
                                         val alert: AlertDialog.Builder = AlertDialog.Builder(requireContext())
                                         alert.setTitle(requireContext().getString(R.string.your_registration_recovery_code))
@@ -108,7 +101,13 @@ class RegisterFragmentUser : Fragment() , IProgressbarState {
                                         }
                                         alert.show()
                                     }
-                                }
+                            }catch (e : Error){
+                                Toast.makeText(
+                                    activity,
+                                    getString(R.string.un_success),
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
                         }
                     }
                 }

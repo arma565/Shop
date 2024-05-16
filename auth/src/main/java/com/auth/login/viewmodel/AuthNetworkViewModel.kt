@@ -32,7 +32,7 @@ class AuthNetworkViewModel @Inject constructor(
                 }
 
                 override fun onFailure(p0: Call<JsonObject>, p1: Throwable) {
-                    loginLiveData.postValue("0")
+                    throw Error("Failed to register user error message: ${p1.message}")
                 }
 
             })
@@ -51,7 +51,7 @@ class AuthNetworkViewModel @Inject constructor(
             }
 
             override fun onFailure(response: Call<JsonObject>, p1: Throwable) {
-                registerLiveData.postValue(0)
+                throw Error("Failed to register user error message: ${p1.message}")
             }
 
         })
