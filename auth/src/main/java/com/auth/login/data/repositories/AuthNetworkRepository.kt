@@ -1,7 +1,6 @@
 package com.auth.login.data.repositories
 
 import com.auth.login.data.remote.AuthApiService
-import com.google.gson.JsonObject
 import retrofit2.Response
 import javax.inject.Inject
 

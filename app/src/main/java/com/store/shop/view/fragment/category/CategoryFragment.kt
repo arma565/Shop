@@ -15,9 +15,6 @@ import com.store.shop.databinding.FragmentCategoryBinding
 import com.store.shop.view.fragment.category.adapter.CategoryAdapter
 import com.store.shop.viewmodel.RemoteShopViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CategoryFragment : Fragment(), IProgressbarState {
