@@ -7,8 +7,8 @@ import com.store.shop.data.repository.LocalShopRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,6 +16,9 @@ import javax.inject.Inject
 class LocalShopViewModel @Inject constructor(
     private val localRepository: LocalShopRepository
 ) : ViewModel() {
+    private var _getProductListMutableStateFlow: MutableStateFlow<List<Product>> =
+        MutableStateFlow(mutableListOf())
+    var productList = _getProductListMutableStateFlow.asStateFlow()
 
     /**
      * Upsert Method
@@ -31,10 +34,12 @@ class LocalShopViewModel @Inject constructor(
     /**
      *Product list
      */
-    fun productList(): Flow<List<Product>> = flow {
-        localRepository.productList().collect {
-            this.emit(it)
-            delay(1000L)
+    fun getProductList() {
+        viewModelScope.launch(IO) {
+            localRepository.productList().collect {
+                _getProductListMutableStateFlow.emit(it)
+                delay(1000)
+            }
         }
     }
 

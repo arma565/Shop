@@ -2,11 +2,8 @@ package com.store.shop.di
 
 import android.content.Context
 import androidx.room.Room
-import com.auth.login.data.local.AuthDatabase
-import com.auth.login.data.model.Constants
-import com.auth.login.data.model.Constants.APP_DATABASE_NAME
-import com.auth.login.data.model.Constants.BASE_URL
-import com.auth.login.data.remote.AuthApiService
+import com.authentication.auth.data.model.Constants.APP_DATABASE_NAME
+import com.authentication.auth.data.model.Constants.BASE_URL
 import com.store.shop.data.local.ShopDatabase
 import com.store.shop.data.remote.ApiService
 import dagger.Module
@@ -44,22 +41,4 @@ object AppModule {
     @Singleton
     @Provides
     fun provideApiService(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
-
-
-    @Singleton
-    @Provides
-    fun provideLoginDataBase(@ApplicationContext context: Context) =
-        synchronized(AuthDatabase::class.java) {
-            Room.databaseBuilder(context, AuthDatabase::class.java, Constants.AUTH_DATABASE_NAME).build()
-        }
-
-    @Singleton
-    @Provides
-    fun provideDao(db: AuthDatabase) = db.dao()
-
-    @Singleton
-    @Provides
-    fun provideAuthApiService(retrofit: Retrofit): AuthApiService =
-        retrofit.create(AuthApiService::class.java)
-
 }

@@ -1,20 +1,19 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.navigation.safeargs)
-    alias(libs.plugins.kotlin.parcelize)
-    alias(libs.plugins.ksp)
     alias(libs.plugins.hilt.dagger)
-    alias(libs.plugins.kapt)
+    alias(libs.plugins.ksp)
 }
 
 android {
-    namespace 'com.auth.login'
+    namespace 'com.authentication.auth'
     compileSdk 34
 
     defaultConfig {
         minSdk 25
-        targetSdk 34
+        testOptions.targetSdk = 34
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
@@ -26,65 +25,68 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_21
-        targetCompatibility JavaVersion.VERSION_21
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     kotlin{
         jvmToolchain(21)
     }
     buildFeatures {
-        dataBinding true
-        viewBinding true
+        compose = true
     }
 }
 
 dependencies {
-    implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.android.material)
-    implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.navigation.fragment)
-    implementation(libs.androidx.navigation.ui)
-    implementation(libs.preference.ktx)
     implementation(libs.joda.time)
     implementation(libs.androidx.test.core)
-    implementation(libs.androidx.junit)
-    implementation(libs.androidx.activity)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.junit)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.ui.compose)
+    implementation(libs.androidx.ui.compose.graphics)
+    testImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.ext)
+    androidTestRuntimeOnly(libs.androidx.test.core)
     androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.androidx.arch)
     testImplementation(libs.mockito.core)
     androidTestImplementation(libs.mockito.android)
-    implementation(libs.multidex)
-    implementation(libs.dots.indicator)
+    testImplementation(libs.coroutine.test)
+    implementation(libs.androidx.core.ktx)
 
+    //Room
     implementation(libs.room)
     implementation(libs.room.ktx)
     ksp(libs.room.compiler.ksp)
 
+    //Dagger hilt
     implementation(libs.dagger.hilt)
     ksp(libs.dagger.hilt.compiler.ksp)
 
-    implementation(libs.coroutine.android)
+    //Coroutine
+    runtimeOnly(libs.coroutine.android)
     implementation(libs.coroutine.core)
 
-
-    implementation(libs.androidx.lifecycle.viewmodel)
-    implementation(libs.androidx.lifecycle.livedata)
-
-
-    implementation(libs.androidx.activity.ktx)
-    implementation(libs.androidx.fragment.ktx)
-
-
-    implementation(libs.glide.transformations)
-    implementation(libs.gpu.image)
-    implementation(libs.glide)
-
-
+    //Retrofit
     implementation(libs.retrofit2)
     implementation(libs.retrofit2.converter.gson)
 
+    //Compose
+    implementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.constraint.layout)
+    implementation(libs.androidx.compose.activity)
+    implementation(libs.androidx.compose.viewmodel)
+    implementation(libs.androidx.compose.livedata)
+    implementation(libs.androidx.compose.icons.core)
+    implementation(libs.androidx.compose.icons.extended)
+    implementation(libs.androidx.compose.window.size)
+    implementation(libs.androidx.compose.navigation)
+    implementation(libs.androidx.compose.lifecycle.runtime)
+    implementation(libs.androidx.ui.compose.tooling.preview)
+    debugImplementation(libs.androidx.ui.compose.tooling.debug)
+    androidTestImplementation(libs.androidx.ui.compose.test.junit4)
+    debugRuntimeOnly(libs.androidx.ui.compose.test.manifest)
+    implementation(libs.androidx.compose.animation)
     implementation project(':network_state')
 }

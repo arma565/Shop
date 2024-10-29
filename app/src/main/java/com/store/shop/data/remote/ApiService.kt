@@ -5,6 +5,7 @@ import com.store.shop.data.model.BaseCategory
 import com.store.shop.data.model.BaseHome
 import com.store.shop.data.model.BaseProductCategory
 import com.store.shop.data.model.New
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -27,5 +28,5 @@ interface ApiService {
     suspend fun getBaseHome(): Response<BaseHome>
 
     @GET("search.php")
-    suspend fun searchProduct(@Query("title") title: String): Response<BaseProductCategory>
+    fun searchProduct(@Query("title") title: String): Call<BaseProductCategory>
 }

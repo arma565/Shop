@@ -9,23 +9,20 @@ import com.store.shop.data.remote.ApiService
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
+import retrofit2.Call
 import retrofit2.Response
 import javax.inject.Inject
 
 class RemoteShopRepository @Inject constructor(
     private val apiService: ApiService
 ) {
-    fun getNews(): Flow<Response<List<New>>> = flow {
-        this.emit(apiService.getNews())
-        delay(1000L)
-    }
-
-    suspend fun getCategories(): Response<BaseCategories> = apiService.getCategories()
-    suspend fun getCategory(): Response<BaseCategory> = apiService.getCategory()
-    suspend fun getProductCategory(catId: String): Response<BaseProductCategory> =
-        apiService.getProductCategory(catId)
-
+    suspend fun getNews(): Flow<Response<List<New>>> = flowOf(apiService.getNews())
     suspend fun getBaseHome(): Response<BaseHome> = apiService.getBaseHome()
-    suspend fun search(title: String): Response<BaseProductCategory> =
+    suspend fun getBaseCategory(): Response<BaseCategory> = apiService.getCategory()
+    suspend fun getCategories(): Response<BaseCategories> = apiService.getCategories()
+    suspend fun getProductCategory(catId: String): Flow<Response<BaseProductCategory>> = flowOf(apiService.getProductCategory(catId))
+
+    fun searchProduct(title: String): Call<BaseProductCategory> =
         apiService.searchProduct(title)
 }

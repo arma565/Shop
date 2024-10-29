@@ -1,20 +1,8 @@
-@file:Suppress("UnstableApiUsage")
-
-include(":network_state")
-
-
-
 pluginManagement {
     repositories {
-        google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
-        }
-        mavenCentral()
         gradlePluginPortal()
+        google()
+        mavenCentral()
     }
 }
 dependencyResolutionManagement {
@@ -28,3 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = "Shop"
 include(":app")
 include (":auth")
+include(":network_state")

@@ -5,17 +5,12 @@
 
     <application>
         <activity
-            android:name=".view.activity.SettingActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.activity.LoginMainActivity"
+            android:name=".view.activity.AuthActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
     </application>
 

@@ -1,0 +1,18 @@
+package com.authentication.auth.data.repository
+
+import com.authentication.auth.data.remote.AuthApiService
+import retrofit2.Response
+import javax.inject.Inject
+
+
+class AuthNetworkRepository @Inject constructor(
+    private val apiService: AuthApiService
+) {
+
+    suspend fun login(username: String, password: String): Response<Any> =
+        apiService.login(username, password)
+
+    suspend fun register(username: String, password: String): Response<Any> =
+        apiService.register(username, password)
+
+}
