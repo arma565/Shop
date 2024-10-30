@@ -36,7 +36,6 @@ class AuthActivity : ComponentActivity() {
     private val authNetworkViewModel: AuthNetworkViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        logIn(this@AuthActivity)
         GlobalFunctions.checkNetwork(this@AuthActivity)
         if (UserAutoLoginConfig(applicationContext).getRememberCheck()) {
             logIn(this@AuthActivity)
