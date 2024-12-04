@@ -5,7 +5,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import com.network.state.IResponseEvent
 
-class ConnectivityCheck(private val context: Context, private val listener: IResponseEvent) {
+class ConnectivityCheck(private val listener: IResponseEvent) {
 
     private var connectivityManager: ConnectivityManager? = null
 
