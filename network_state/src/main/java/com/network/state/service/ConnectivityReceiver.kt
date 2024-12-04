@@ -8,7 +8,6 @@ import android.net.NetworkRequest
 import com.network.state.IResponseEvent
 
 class ConnectivityReceiver(private val listener: IResponseEvent) {
-
     private var connectivityManager: ConnectivityManager? = null
     private var networkCallback: ConnectivityManager.NetworkCallback? = null
 
@@ -22,11 +21,12 @@ class ConnectivityReceiver(private val listener: IResponseEvent) {
         networkCallback = object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
                 super.onAvailable(network)
-                listener.state(true)
+                listener.onConnected(true)
             }
             override fun onLost(network: Network) {
                 super.onLost(network)
-                listener.state(false)
+                listener.onConnected(false)
+                unregister()
             }
         }
 

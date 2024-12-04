@@ -1,31 +1,31 @@
 [versions]
 ## Dependencies version
 coilCompose = "2.7.0"
-coreKtx = "1.13.1"
+coreKtx = "1.15.0"
 appcompat = "1.7.0"
 material = "1.12.0"
-androidxNavigation = "2.8.3"
+androidxNavigation = "2.8.4"
 joda = "2.13.0"
 core = "1.6.1"
 junit = "4.13.2"
 room = "2.6.1"
 coroutine = "1.9.0"
 retrofit = "2.11.0"
-workManager="2.9.1"
+workManager="2.10.0"
 espressoCore = "3.6.1"
-lifecycleRuntimeKtx = "2.8.6"
+lifecycleRuntimeKtx = "2.8.7"
 extTest = "1.2.1"
-composeConstraintLayout = "1.0.1"
-mockito = "5.14.0"
-mockito-androidTestImplementation = "5.14.0"
+composeConstraintLayout = "1.1.0"
+mockito = "5.14.2"
+mockito-androidTestImplementation = "5.14.2"
 
 ## Plugins versions
-agp = "8.5.2"
-kotlin = "2.0.20"
-navigation = "2.8.3"
+agp = "8.7.3"
+kotlin = "2.0.21"
+navigation = "2.8.4"
 hilt = "2.52"
-ksp = "2.0.20-1.0.25"
-composeBom = "2024.10.00"
+ksp = "2.0.21-1.0.26"
+composeBom = "2024.11.00"
 
 
 [libraries]
@@ -64,19 +64,19 @@ work-manager = {group="androidx.work" , name ="work-runtime-ktx" , version.ref =
 
 ##Compose
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
-coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+androidx-compose-coil = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 androidx-ui-compose = { group = "androidx.compose.ui", name = "ui" }
 androidx-ui-compose-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-ui-compose-tooling-debug = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-compose-tooling-preview  = { group = "androidx.compose.ui", name = "ui-tooling-preview"}
 androidx-ui-compose-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
-androidx-ui-compose-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version = "1.7.4" }
+androidx-ui-compose-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version = "1.7.5" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3"}
 androidx-compose-constraint-layout = { group = "androidx.constraintlayout", name = "constraintlayout-compose" , version.ref = "composeConstraintLayout"}
 androidx-compose-activity = { group = "androidx.activity", name = "activity-compose", version = "1.9.3" }
 androidx-compose-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose"}
-androidx-compose-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" , version="1.7.4"}
-androidx-compose-lifecycle-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose" , version= "2.8.6" }
+androidx-compose-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" , version="1.7.5"}
+androidx-compose-lifecycle-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose" , version= "2.8.7" }
 androidx-compose-icons-core = { group = "androidx.compose.material", name = "material-icons-core"}
 androidx-compose-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended"}
 androidx-compose-window-size = { group = "androidx.compose.material3", name = "material3-window-size-class"}

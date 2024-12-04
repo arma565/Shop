@@ -2,7 +2,6 @@ package com.authentication.auth.data.model
 
 import android.content.Context
 import android.content.Intent
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -19,15 +18,14 @@ import androidx.compose.ui.Modifier
 import androidx.core.app.ActivityOptionsCompat
 import com.authentication.auth.data.config.UserAutoLoginConfig
 import com.authentication.auth.view.activity.AuthActivity
-import com.network.state.IResponseEvent
-import com.network.state.NetworkStateManager
 import kotlinx.coroutines.delay
 
 object GlobalFunctions {
 
     fun logIn(activity: ComponentActivity) {
         activity.finish()
-        val intentPropertyActivity = Intent(activity, Class.forName("com.store.shop.view.activity.ShopActivity"))
+        val intentPropertyActivity =
+            Intent(activity, Class.forName("com.store.shop.view.activity.ShopActivity"))
         intentPropertyActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         activity.startActivity(intentPropertyActivity, activityFadeAnimation(activity as Context))
     }
@@ -66,33 +64,6 @@ object GlobalFunctions {
             )
         ) {
             content()
-        }
-    }
-
-    fun checkNetwork(activity: ComponentActivity) {
-        try {
-            NetworkStateManager(activity, activity).start(object :
-                IResponseEvent {
-                override fun state(state: Boolean) {
-                    if (!state) {
-                        Toast.makeText(
-                            activity, "No internet connection",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-
-                override fun serverState(state: Boolean) {
-                    if (!state) {
-                        Toast.makeText(
-                            activity, "Server is not available",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-            })
-        } catch (e: Exception) {
-            Toast.makeText(activity, "Unknown system error! $e", Toast.LENGTH_LONG).show()
         }
     }
 }

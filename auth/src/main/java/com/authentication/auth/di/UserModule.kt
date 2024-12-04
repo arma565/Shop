@@ -3,6 +3,7 @@ package com.authentication.auth.di
 import android.content.Context
 import androidx.room.Room
 import com.authentication.auth.data.local.UserDatabase
+import com.authentication.auth.data.model.Constants.AUTH_DATABASE_NAME
 import com.authentication.auth.data.remote.AuthApiService
 import com.authentication.auth.data.use_case.ValidateTerms
 import com.authentication.auth.data.use_case.ValidateUserEmail
@@ -24,13 +25,13 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object UserModule {
 
-    private const val DB_NAME = "login.db"
+
 
     @Singleton
     @Provides
     fun provideDataBase(@ApplicationContext context: Context) =
         synchronized(UserDatabase::class.java) {
-            Room.databaseBuilder(context, UserDatabase::class.java, DB_NAME).build()
+            Room.databaseBuilder(context, UserDatabase::class.java, AUTH_DATABASE_NAME).build()
         }
 
     @Singleton

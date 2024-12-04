@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace = "com.store.shop"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.store.shop"
@@ -91,7 +91,7 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.compose.test.junit4)
     debugRuntimeOnly(libs.androidx.ui.compose.test.manifest)
     implementation(libs.androidx.compose.animation)
-    implementation(libs.coil.compose)
+    implementation(libs.androidx.compose.coil)
     implementation(libs.androidx.ui.compose)
     implementation(libs.androidx.ui.compose.graphics)
     implementation(project(":auth"))

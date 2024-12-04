@@ -6,9 +6,7 @@ import com.store.shop.data.model.BaseHome
 import com.store.shop.data.model.BaseProductCategory
 import com.store.shop.data.model.New
 import com.store.shop.data.remote.ApiService
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import retrofit2.Call
 import retrofit2.Response
@@ -21,7 +19,8 @@ class RemoteShopRepository @Inject constructor(
     suspend fun getBaseHome(): Response<BaseHome> = apiService.getBaseHome()
     suspend fun getBaseCategory(): Response<BaseCategory> = apiService.getCategory()
     suspend fun getCategories(): Response<BaseCategories> = apiService.getCategories()
-    suspend fun getProductCategory(catId: String): Flow<Response<BaseProductCategory>> = flowOf(apiService.getProductCategory(catId))
+    suspend fun getProductCategory(catId: String): Flow<Response<BaseProductCategory>> =
+        flowOf(apiService.getProductCategory(catId))
 
     fun searchProduct(title: String): Call<BaseProductCategory> =
         apiService.searchProduct(title)
