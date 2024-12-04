@@ -43,17 +43,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.appcompat)
-    implementation(libs.android.material)
-    implementation(libs.joda.time)
-    implementation(libs.androidx.test.core)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    testImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.ext)
-    androidTestRuntimeOnly(libs.androidx.test.core)
-    androidTestImplementation(libs.androidx.espresso.core)
-    testImplementation(libs.mockito.core)
-    androidTestImplementation(libs.mockito.android)
 
     //Room
     implementation(libs.room)
@@ -64,33 +53,7 @@ dependencies {
     //Dagger Hilt
     implementation(libs.dagger.hilt)
     ksp(libs.dagger.hilt.compiler.ksp)
-
-    //Coroutine
-    implementation(libs.coroutine.android)
-    implementation(libs.coroutine.core)
-
-    //Retrofit
-    implementation(libs.retrofit2)
-    implementation(libs.retrofit2.converter.gson)
-
-    //Compose
-    implementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.constraint.layout)
-    implementation(libs.androidx.compose.activity)
-    implementation(libs.androidx.compose.viewmodel)
-    implementation(libs.androidx.compose.livedata)
-    implementation(libs.androidx.compose.icons.core)
-    implementation(libs.androidx.compose.icons.extended)
-    implementation(libs.androidx.compose.window.size)
-    implementation(libs.androidx.compose.navigation)
-    implementation(libs.androidx.compose.lifecycle.runtime)
-    implementation(libs.androidx.ui.compose.tooling.preview)
-    debugImplementation(libs.androidx.ui.compose.tooling.debug)
-    androidTestImplementation(libs.androidx.ui.compose.test.junit4)
-    debugRuntimeOnly(libs.androidx.ui.compose.test.manifest)
-    implementation(libs.androidx.compose.animation)
+    
     implementation(libs.androidx.compose.coil)
     implementation(libs.androidx.ui.compose)
     implementation(libs.androidx.ui.compose.graphics)

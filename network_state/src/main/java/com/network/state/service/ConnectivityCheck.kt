@@ -15,22 +15,10 @@ class ConnectivityCheck(private val context: Context, private val listener: IRes
         val network = connectivityManager?.activeNetwork
         val networkCapabilities = connectivityManager?.getNetworkCapabilities(network)
         val isNetworkConnected = networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
-        isInternetAvailable(isNetworkConnected)
-    }
-
-    private fun isInternetAvailable(isNetworkConnected: Boolean) {
-        if (isNetworkConnected) {
-            PingTask.ping("https://androidsupport.ir/pack/") { isServerRespond ->
-                if (!isServerRespond) {
-                    listener.onConnected(false)
-                    ConnectivityReceiver(listener).unregister()
-                } else {
-                    listener.onConnected(true)
-                    ConnectivityReceiver(listener).register(context)
-                }
-                return@ping
-            }
-        } else {
+        if (isNetworkConnected){
+            listener.onConnected(true)
+            ConnectivityReceiver(listener).register(context)
+        }else{
             listener.onConnected(false)
             ConnectivityReceiver(listener).unregister()
         }

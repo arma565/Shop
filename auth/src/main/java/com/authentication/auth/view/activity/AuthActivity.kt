@@ -31,6 +31,9 @@ import com.authentication.auth.viewmodel.UserValidationState
 import com.network.state.IResponseEvent
 import com.network.state.NetworkStateManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AuthActivity : ComponentActivity() {
@@ -43,10 +46,12 @@ class AuthActivity : ComponentActivity() {
             IResponseEvent {
             override fun onConnected(state: Boolean) {
                 if (!state) {
-                    Toast.makeText(
-                        this@AuthActivity, "Network is unreachable",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    CoroutineScope(Main).launch{
+                        Toast.makeText(
+                            this@AuthActivity, "Network is unreachable",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                     return
                 }else{
                     if (UserAutoLoginConfig(applicationContext).getRememberCheck()) {
