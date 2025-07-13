@@ -1,5 +1,6 @@
 package com.authentication.auth.view.compose
 
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,8 +12,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
@@ -22,16 +25,20 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -41,41 +48,69 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import com.authentication.auth.R
-import com.authentication.auth.data.model.User
+import com.authentication.auth.data.config.AccountRecoveryPreferences
+import com.authentication.auth.data.model.Reset
 import com.authentication.auth.ui.theme.Black
 import com.authentication.auth.ui.theme.Blue
 import com.authentication.auth.ui.theme.White
-import com.authentication.auth.view.activity.AuthViewModelInstance.authenticationViewModel
-import com.authentication.auth.viewmodel.AuthenticationViewModel
+import com.authentication.auth.viewmodel.AuthViewModel
+import com.network.state.viewmodel.NetworkStatusViewModel
 import com.authentication.auth.viewmodel.UserEvent
+
 
 @Composable
 fun RecoveryUserCompose(
-    user: User,
+    activity: ComponentActivity,
+    networkStatusViewModel: NetworkStatusViewModel,
+    authViewModel: AuthViewModel,
     onLoginClick: () -> Unit,
 ) {
-    val userValidationState = authenticationViewModel.personState
+    val snackBarHost = remember { SnackbarHostState() }
+    var showSnack by remember { mutableStateOf(false) }
+    var serverError by remember { mutableStateOf("") }
+    var showDialog by rememberSaveable { mutableStateOf(false) }
+    val context = LocalContext.current
+    val userValidationState = authViewModel.personState
+
     LaunchedEffect(key1 = userValidationState) {
-        authenticationViewModel.validationEvent.collect { event ->
-            if (event == AuthenticationViewModel.ValidationEvent.Success) {
-                authenticationViewModel.upsertUser(User(
-                    id = user.id,
-                    username = user.username,
-                    firstName = user.firstName,
-                    lastName = user.lastName,
-                    phoneNumber = user.phoneNumber,
-                    email = user.email,
-                    password = userValidationState.password,
-                    recoveryCode = user.recoveryCode,
-                    repeatedPassword = userValidationState.repeatedPassword,
-                    profilePhoto = user.profilePhoto
-                ))
-                onLoginClick()
+        activity.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            authViewModel.validationEvent.collect { event ->
+                if (event == AuthViewModel.ValidationEvent.Success) {
+                    networkStatusViewModel.start(activity)
+                    val accountRecoveryPreferences = AccountRecoveryPreferences(context)
+                    authViewModel.reset(
+                        Reset(
+                            email = authViewModel.getEmailFromSharedPreferences()!!,
+                            token = authViewModel.getTokenFromSharedPreferences()!!,
+                            newPassword = userValidationState.password,
+                            repeatNewPassword = userValidationState.repeatedPassword
+                        )
+                    ) { res ->
+                        if (res.isSuccessful) {
+                            accountRecoveryPreferences.clearAll()
+                            authViewModel.clearCache()
+                            onLoginClick()
+                        } else {
+                            serverError = res.errorBody()?.string()!!
+                            showSnack = true
+                        }
+                    }
+                }
             }
         }
+
     }
 
+    if (showDialog) {
+        ResetDialog {
+            showDialog = false
+            authViewModel.clearCache()
+            onLoginClick()
+        }
+    }
     Scaffold { innerPadding ->
         Column(
             modifier = Modifier
@@ -103,9 +138,22 @@ fun RecoveryUserCompose(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
+                    if (showSnack && serverError.isNotEmpty()) {
+                        LaunchedEffect(key1 = snackBarHost) {
+                            snackBarHost.showSnackbar(
+                                message = serverError,
+                                actionLabel = context.getString(
+                                    R.string.ok
+                                )
+                            )
+                            showSnack = false
+                            return@LaunchedEffect
+                        }
+                    }
+
                     Image(
-                        painter = painterResource(id = R.drawable.shop),
-                        contentDescription = stringResource(id = R.string.shop_image)
+                        painter = painterResource(id = R.drawable.estate),
+                        contentDescription = stringResource(id = R.string.estate_image)
                     )
 
                     Column(
@@ -143,7 +191,7 @@ fun RecoveryUserCompose(
                         RecoverUserComposeTextFields(
                             valueSet = userValidationState.password,
                             onValueChangeSet = {
-                                authenticationViewModel.onEvent(
+                                authViewModel.onEvent(
                                     UserEvent.PasswordChanged(it)
                                 )
                             },
@@ -156,7 +204,7 @@ fun RecoveryUserCompose(
                         RecoverUserComposeTextFields(
                             valueSet = userValidationState.repeatedPassword,
                             onValueChangeSet = {
-                                authenticationViewModel.onEvent(
+                                authViewModel.onEvent(
                                     UserEvent.RepeatedPasswordChanged(
                                         it
                                     )
@@ -167,8 +215,6 @@ fun RecoveryUserCompose(
                             errorMessage = userValidationState.repeatedPasswordError,
                             labelId = R.string.repeated_password
                         )
-
-
                     }
 
                     ExtendedFloatingActionButton(
@@ -178,7 +224,7 @@ fun RecoveryUserCompose(
                             .padding(top = 50.dp),
                         containerColor = Blue,
                         onClick = {
-                            authenticationViewModel.onEvent(UserEvent.RecoverySubmit)
+                            authViewModel.onEvent(UserEvent.RecoverySubmit)
                         }) {
                         Text(
                             text = stringResource(id = R.string.save),
@@ -189,6 +235,35 @@ fun RecoveryUserCompose(
             }
         }
     }
+}
+
+@Composable
+private fun ResetDialog(
+    onDismissRequest: () -> Unit
+) {
+    AlertDialog(
+        icon = {
+            Icon(
+                Icons.Filled.Info,
+                contentDescription = stringResource(id = R.string.reset_password)
+            )
+        },
+        title = {
+            Text(text = stringResource(id = R.string.reset_password))
+        },
+        text = {
+            Text(
+                text = stringResource(id = R.string.yout_password_has_been_reset)
+            )
+        },
+        onDismissRequest = {},
+        confirmButton = {
+            TextButton(onClick = {
+                onDismissRequest()
+            }) {
+                Text(text = stringResource(R.string.confirm))
+            }
+        })
 }
 
 @Composable

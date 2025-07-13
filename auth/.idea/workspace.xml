@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="51690e72-e7b4-407e-96b9-c1f9938bea78" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../.idea/androidTestResultsUserPreferences.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/androidTestResultsUserPreferences.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/deviceManager.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/androidTest/java/com/real/estate/viewmodel/asset/AssetViewModelTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/androidTest/java/com/real/estate/viewmodel/asset/AssetViewModelTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/androidTest/java/com/real/estate/viewmodel/person/PersonViewModelTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/androidTest/java/com/real/estate/viewmodel/person/PersonViewModelTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/real/estate/data/model/asset/Asset.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/real/estate/data/model/asset/Asset.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/real/estate/data/model/asset/AssetImage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/real/estate/data/model/asset/AssetImage.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/real/estate/view/activity/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/real/estate/view/activity/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/real/estate/view/compose/Home.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/real/estate/view/compose/Home.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/real/estate/view/compose/person/AddPerson.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/real/estate/view/compose/person/AddPerson.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/real/estate/view/compose/person/EditPerson.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/real/estate/view/compose/person/EditPerson.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/real/estate/viewmodel/asset/AssetViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/real/estate/viewmodel/asset/AssetViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/real/estate/viewmodel/person/PersonViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/real/estate/viewmodel/person/PersonViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/values-fa/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/values-fa/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/authentication/auth/di/UserModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/authentication/auth/di/UserModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../camera/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/../camera/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../camera/src/main/java/com/camera/camerax/CameraManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../camera/src/main/java/com/camera/camerax/CameraManager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../camera/src/main/java/com/camera/camerax/data/Image.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../camera/src/main/java/com/camera/camerax/data/Image.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../camera/src/main/java/com/camera/camerax/event/ICameraManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../camera/src/main/java/com/camera/camerax/event/ICameraManager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/../gradle/libs.versions.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../network_state/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/../network_state/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/../settings.gradle.kts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2zpbs6KKtKVa9HMovxaJKQ9h2v4" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "android.gradle.sync.needed": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="51690e72-e7b4-407e-96b9-c1f9938bea78" name="Changes" comment="" />
+      <created>1752431165089</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1752431165089</updated>
+    </task>
+    <servers />
+  </component>
+</project>

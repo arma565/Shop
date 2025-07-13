@@ -1,6 +1,6 @@
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.navigation.safeargs)
     alias(libs.plugins.hilt.dagger)
     alias(libs.plugins.ksp)
@@ -10,11 +10,20 @@ plugins {
 
 android {
     namespace = "com.store.shop"
-    compileSdk = 35
+    compileSdk = 36
+
+    packaging {
+        resources {
+            excludes += arrayOf(
+                "META-INF/LICENSE.md",
+                "META-INF/LICENSE-notice.md" // (optional if you also get this one)
+            )
+        }
+    }
 
     defaultConfig {
         applicationId = "com.store.shop"
-        minSdk = 25
+        minSdk = 26
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -30,11 +39,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+        sourceCompatibility = JavaVersion.VERSION_24
+        targetCompatibility = JavaVersion.VERSION_24
     }
     kotlin {
-        jvmToolchain(21)
+        jvmToolchain(24)
     }
 
     buildFeatures {
@@ -43,20 +52,62 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.appcompat)
+    implementation(libs.android.material)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation (libs.gson)
+
+    //test
+    implementation(libs.androidx.junit)
+    implementation(libs.androidx.compose.ui.test.junit4)
+    implementation(libs.androidx.test.core)
+    implementation(libs.coroutine.test)
+    implementation(libs.turbine)
+    implementation(libs.mockk)
+    implementation(libs.mockk.android)
+    implementation(libs.mockwebserver)
+    implementation(libs.androidx.ext)
+    implementation(libs.androidx.espresso.core)
+    debugImplementation (libs.androidx.compose.ui.test.manifest)
 
     //Room
     implementation(libs.room)
     implementation(libs.room.ktx)
-    debugImplementation(libs.androidx.ui.compose.test.manifest)
     ksp(libs.room.compiler.ksp)
 
     //Dagger Hilt
     implementation(libs.dagger.hilt)
     ksp(libs.dagger.hilt.compiler.ksp)
-    
+
+    //coroutine
+    implementation(libs.coroutine.android)
+    implementation(libs.coroutine.core)
+
+    //Retrofit
+    implementation(libs.retrofit2)
+    implementation(libs.retrofit2.converter.gson)
+
+    //compose
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.lifecycle.runtime)
+    implementation(libs.androidx.compose.activity)
+    runtimeOnly (libs.androidx.compose.compiler)
+    implementation (libs.androidx.compose.animation)
     implementation(libs.androidx.compose.coil)
-    implementation(libs.androidx.ui.compose)
-    implementation(libs.androidx.ui.compose.graphics)
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.graphics)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.constraint.layout)
+    implementation(libs.androidx.compose.viewmodel)
+    implementation(libs.androidx.compose.livedata)
+    implementation(libs.androidx.compose.icons.core)
+    implementation(libs.androidx.compose.icons.extended)
+    implementation(libs.androidx.compose.window.size)
+    implementation(libs.androidx.compose.navigation)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.compose.ui.tooling.debug)
+
     implementation(project(":auth"))
     implementation(project(":network_state"))
 }

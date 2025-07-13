@@ -1,33 +1,34 @@
 package com.authentication.auth.data.model
 
-import android.graphics.Bitmap
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
 /**
  * User entity(model)
  */
-@Entity(tableName = "tbl_user")
 data class User(
-    @PrimaryKey(autoGenerate = true)
+    @SerializedName(value = "$/id")
     var id: Int = 0,
-    @ColumnInfo("user_name")
-    var username: String = "",
-    @ColumnInfo("first_name")
+    @SerializedName("profileImagePath")
+    @Expose
+    var profileImagePath: String = "",
+    @SerializedName("firstName")
+    @Expose
     var firstName: String = "",
-    @ColumnInfo("last_name")
+    @SerializedName("lastName")
+    @Expose
     var lastName: String = "",
-    @ColumnInfo("phone_number")
-    var phoneNumber: String = "",
-    var email: String = "",
-    var password: String = "",
-    @ColumnInfo("repeated_password")
-    var repeatedPassword: String = "",
-    @ColumnInfo("recovery_code")
-    var recoveryCode: String = "",
-    @ColumnInfo("accept_terms")
+    @SerializedName("acceptTerms")
+    @Expose
     var acceptTerms: Boolean = false,
-    @ColumnInfo("profile_photo")
-    var profilePhoto: Bitmap? = null
+    @SerializedName("userName")
+    @Expose
+    var username: String = "",
+    @SerializedName("email")
+    @Expose
+    var email: String = "",
+    @SerializedName("phoneNumber")
+    @Expose
+    var phoneNumber: String = "",
 )
+

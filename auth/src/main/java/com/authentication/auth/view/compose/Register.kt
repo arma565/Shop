@@ -1,6 +1,5 @@
 package com.authentication.auth.view.compose
 
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -23,7 +22,6 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
@@ -37,7 +35,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -56,73 +53,63 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import com.authentication.auth.R
-import com.authentication.auth.data.model.User
+import com.authentication.auth.data.model.Register
 import com.authentication.auth.ui.theme.Black
 import com.authentication.auth.ui.theme.Blue
 import com.authentication.auth.ui.theme.White
-import com.authentication.auth.view.activity.AuthViewModelInstance.authNetworkViewModel
-import com.authentication.auth.view.activity.AuthViewModelInstance.authenticationViewModel
-import com.authentication.auth.viewmodel.AuthenticationViewModel
+import com.authentication.auth.viewmodel.AuthViewModel
+import com.network.state.viewmodel.NetworkStatusViewModel
 import com.authentication.auth.viewmodel.UserEvent
+
 
 @Composable
 fun RegisterCompose(
     activity: ComponentActivity,
+    networkStatusViewModel: NetworkStatusViewModel,
+    authViewModel: AuthViewModel,
     onLoginClick: () -> Unit
 ) {
     val snackBarHost = remember { SnackbarHostState() }
-    var showProgressBar by remember { mutableStateOf(false) }
     var showDialog by rememberSaveable { mutableStateOf(false) }
     var showSnack by remember { mutableStateOf(false) }
-    val userValidationState = authenticationViewModel.personState
-    when (true) {
-        showDialog -> {
-            RegisterDialog {
-                showDialog = false
-                onLoginClick()
-            }
+    var serverError by remember { mutableStateOf("") }
+    val userValidationState = authViewModel.personState
+    if (showDialog) {
+        RegisterDialog {
+            showDialog = false
+            authViewModel.clearCache()
+            onLoginClick()
         }
-
-        showProgressBar -> {
-            CircularProgressIndicator()
-        }
-
-        else -> {}
     }
-
     val context = LocalContext.current
     LaunchedEffect(key1 = userValidationState) {
-        authenticationViewModel.validationEvent.collect { event ->
-            showProgressBar = true
-            if (event == AuthenticationViewModel.ValidationEvent.Success) {
-                try {
-                    authNetworkViewModel.register(
-                        userValidationState.email,
-                        userValidationState.password
-                    ).observe(activity) { registerResult ->
-                        if (registerResult == 0.0) throw Error()
-                        showProgressBar = false
-                        authenticationViewModel.upsertUser(
-                            User(
-                                email = userValidationState.email,
-                                password = userValidationState.password,
-                                repeatedPassword = userValidationState.repeatedPassword,
-                                recoveryCode = (1548..4781345).random().toString(),
-                                acceptTerms = userValidationState.acceptedTerms
-                            )
+        activity.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            authViewModel.validationEvent.collect { event ->
+                if (event == AuthViewModel.ValidationEvent.Success) {
+                    networkStatusViewModel.start(activity)
+                    authViewModel.registerUser(
+                        Register(
+                            userValidationState.userName,
+                            userValidationState.email,
+                            userValidationState.password,
+                            userValidationState.repeatedPassword,
+                            userValidationState.acceptedTerms
                         )
-                        showDialog = true
+                    ) { res ->
+                        if (res.isSuccessful) {
+                            showDialog = true
+                        } else {
+                            serverError = res.errorBody()?.string()!!
+                            showSnack = true
+                        }
                     }
-                } catch (e: Error) {
-                    Toast.makeText(
-                        activity,
-                        activity.getString(R.string.un_success),
-                        Toast.LENGTH_LONG
-                    ).show()
                 }
             }
         }
+
     }
 
     Scaffold(
@@ -158,10 +145,10 @@ fun RegisterCompose(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    if (showSnack && userValidationState.userAlreadyExistError.isNotEmpty()) {
+                    if (showSnack && serverError.isNotEmpty()) {
                         LaunchedEffect(key1 = snackBarHost) {
                             snackBarHost.showSnackbar(
-                                message = userValidationState.userAlreadyExistError,
+                                message = serverError,
                                 actionLabel = context.getString(R.string.ok)
                             )
                             showSnack = false
@@ -170,8 +157,8 @@ fun RegisterCompose(
                     }
 
                     Image(
-                        painter = painterResource(id = R.drawable.shop),
-                        contentDescription = stringResource(id = R.string.shop_image)
+                        painter = painterResource(id = R.drawable.estate),
+                        contentDescription = stringResource(id = R.string.estate_image)
                     )
 
                     Column(
@@ -204,10 +191,32 @@ fun RegisterCompose(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
                     ) {
+
+                        RegisterComposeTextFields(
+                            valueSet = userValidationState.userName,
+                            onValueChangeSet = {
+                                authViewModel.onEvent(
+                                    UserEvent.UserNameChanged(it)
+                                )
+                            },
+                            onPlaceHolderId = R.string.user_name,
+                            keyboardType = KeyboardType.Text,
+                            isError = userValidationState.userNameError.isNotEmpty(),
+                            errorMessage = userValidationState.userNameError,
+                            onTrailingIconSet = {
+                                authViewModel.onEvent(
+                                    UserEvent.UserNameChanged(
+                                        ""
+                                    )
+                                )
+                            },
+                            labelId = R.string.user_name
+                        )
+
                         RegisterComposeTextFields(
                             valueSet = userValidationState.email,
                             onValueChangeSet = {
-                                authenticationViewModel.onEvent(
+                                authViewModel.onEvent(
                                     UserEvent.EmailChanged(it)
                                 )
                             },
@@ -216,7 +225,7 @@ fun RegisterCompose(
                             isError = userValidationState.emailError.isNotEmpty(),
                             errorMessage = userValidationState.emailError,
                             onTrailingIconSet = {
-                                authenticationViewModel.onEvent(
+                                authViewModel.onEvent(
                                     UserEvent.EmailChanged(
                                         ""
                                     )
@@ -228,7 +237,7 @@ fun RegisterCompose(
                         RegisterComposeTextFields(
                             valueSet = userValidationState.password,
                             onValueChangeSet = {
-                                authenticationViewModel.onEvent(
+                                authViewModel.onEvent(
                                     UserEvent.PasswordChanged(it)
                                 )
                             },
@@ -238,7 +247,7 @@ fun RegisterCompose(
                             isError = userValidationState.passwordError.isNotEmpty(),
                             errorMessage = userValidationState.passwordError,
                             onTrailingIconSet = {
-                                authenticationViewModel.onEvent(
+                                authViewModel.onEvent(
                                     UserEvent.PasswordChanged("")
                                 )
                             },
@@ -248,7 +257,7 @@ fun RegisterCompose(
                         RegisterComposeTextFields(
                             valueSet = userValidationState.repeatedPassword,
                             onValueChangeSet = {
-                                authenticationViewModel.onEvent(
+                                authViewModel.onEvent(
                                     UserEvent.RepeatedPasswordChanged(
                                         it
                                     )
@@ -260,7 +269,7 @@ fun RegisterCompose(
                             isError = userValidationState.repeatedPasswordError.isNotEmpty(),
                             errorMessage = userValidationState.repeatedPasswordError,
                             onTrailingIconSet = {
-                                authenticationViewModel.onEvent(
+                                authViewModel.onEvent(
                                     UserEvent.RepeatedPasswordChanged("")
                                 )
                             },
@@ -292,7 +301,7 @@ fun RegisterCompose(
                                 Checkbox(
                                     checked = userValidationState.acceptedTerms,
                                     onCheckedChange = {
-                                        authenticationViewModel.onEvent(
+                                        authViewModel.onEvent(
                                             UserEvent.AcceptTermsChanged(
                                                 it
                                             )
@@ -325,8 +334,7 @@ fun RegisterCompose(
                                 .align(Alignment.TopCenter),
                             containerColor = Blue,
                             onClick = {
-                                showSnack = true
-                                authenticationViewModel.onEvent(UserEvent.RegisterSubmit)
+                                authViewModel.onEvent(UserEvent.RegisterSubmit)
                             }) {
                             Text(
                                 text = stringResource(id = R.string.sign_up),
@@ -334,10 +342,12 @@ fun RegisterCompose(
                             )
                         }
 
-                        TextButton(modifier = Modifier
-                            .align(Alignment.BottomEnd)
-                            .padding(60.dp),
+                        TextButton(
+                            modifier = Modifier
+                                .align(Alignment.BottomEnd)
+                                .padding(60.dp),
                             onClick = {
+                                authViewModel.clearCache()
                                 onLoginClick()
                             }) {
                             Text(
@@ -359,26 +369,19 @@ fun RegisterCompose(
 private fun RegisterDialog(
     onDismissRequest: () -> Unit
 ) {
-    val list: List<User> = authenticationViewModel.getUserList.collectAsState().value
-    if (list.isEmpty()) return
-    val userRecoveryCode: String = list.first().recoveryCode
-    AlertDialog(icon = {
-        Icon(
-            Icons.Filled.Info,
-            contentDescription = stringResource(id = R.string.register)
-        )
-    },
+    AlertDialog(
+        icon = {
+            Icon(
+                Icons.Filled.Info,
+                contentDescription = stringResource(id = R.string.register)
+            )
+        },
         title = {
             Text(text = stringResource(id = R.string.register))
         },
         text = {
             Text(
-                text = stringResource(id = R.string.your_registration_recovery_code_is).plus(
-                    userRecoveryCode
-                )
-                    .plus("\n").plus(
-                        stringResource(id = R.string.please_keep_it_for_recovery_assistance)
-                    )
+                text = stringResource(id = R.string.your_registration_is_complete)
             )
         },
         onDismissRequest = {},

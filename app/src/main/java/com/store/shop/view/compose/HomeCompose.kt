@@ -35,6 +35,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -43,9 +45,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
-
-import com.authentication.auth.ui.theme.Black
-import com.authentication.auth.ui.theme.White
 import com.store.shop.R
 import com.store.shop.data.model.BaseCategory
 import com.store.shop.data.model.BaseHome
@@ -113,7 +112,7 @@ fun HomeCompose(remoteShopViewModel: RemoteShopViewModel, onProductClick: () -> 
                         ) {
                             repeat(pagerState.pageCount) { iteration ->
                                 val color =
-                                    if (pagerState.currentPage == iteration) Color.Black else Color.White
+                                    if (pagerState.currentPage == iteration) Black else White
                                 Box(
                                     modifier = Modifier
                                         .padding(2.dp)
@@ -225,18 +224,19 @@ fun ShopLazy(
             .padding(5.dp)
     ) {
         items(list) { lt ->
-            ElevatedCard(modifier = Modifier
-                .width(300.dp)
-                .height(170.dp)
-                .padding(5.dp), colors = CardColors(
-                containerColor = White,
-                contentColor = Black,
-                disabledContentColor = Color.Gray,
-                disabledContainerColor = Color.Gray
-            ), onClick = {
-                remoteShopViewModel.addProduct(lt)
-                onProductClick()
-            }) {
+            ElevatedCard(
+                modifier = Modifier
+                    .width(300.dp)
+                    .height(170.dp)
+                    .padding(5.dp), colors = CardColors(
+                    containerColor = White,
+                    contentColor = Black,
+                    disabledContentColor = Color.Gray,
+                    disabledContainerColor = Color.Gray
+                ), onClick = {
+                    remoteShopViewModel.addProduct(lt)
+                    onProductClick()
+                }) {
                 Column(
                     modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.Center,

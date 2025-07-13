@@ -2,22 +2,21 @@ package com.store.shop.di
 
 import android.content.Context
 import androidx.room.Room
-import com.authentication.auth.data.model.Constants.APP_DATABASE_NAME
-import com.authentication.auth.data.model.Constants.BASE_URL
 import com.store.shop.data.local.ShopDatabase
-import com.store.shop.data.remote.ApiService
+import com.store.shop.data.remote.ShopApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+    const val APP_DATABASE_NAME = "shop.db"
 
     @Provides
     @Singleton
@@ -33,12 +32,6 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(): Retrofit =
-        Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-
-    @Singleton
-    @Provides
-    fun provideApiService(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
+    fun provideShopApiService(retrofit: Retrofit): ShopApiService =
+        retrofit.create(ShopApiService::class.java)
 }

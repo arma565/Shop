@@ -32,7 +32,6 @@ class RemoteShopViewModel @Inject constructor(
 ) : ViewModel() {
 
     var product by mutableStateOf<Product?>(null)
-        private set
     private var _getNewsStateFlow: MutableStateFlow<List<New>> = MutableStateFlow(mutableListOf())
     var getNewList = _getNewsStateFlow.asStateFlow()
     private var _getBaseHomeMutableLiveData: MutableLiveData<BaseHome> = MutableLiveData(BaseHome())

@@ -1,18 +1,16 @@
 <resources>
+
+
     <string name="email_require">ایمیل اجباریست!</string>
     <string name="email_not_valid">قالب ایمیل صحیح نیست!</string>
     <string name="password_require">گذر واژه اجباریست!</string>
     <string name="passwords_not_match">گذرواژه ها نادرست!</string>
-    <string name="user_not_found">کاربری پیدا نشد!</string>
-    <string name="recovery_code_is_require">کد بازیابی اجباریست!</string>
-    <string name="recovery_code_is_incorrect">کد بازیابی صحیح نیست!</string>
-    <string name="user_already_exist">این حساب کاربری موجود است!</string>
     <string name="password_length">طول حروف گذرواژه باید بیشتر از 8 کاراکتر باشد!</string>
     <string name="password_digit_letter">گذرواژه باید شامل حروف و عدد باشد!</string>
     <string name="terms_require">لطفا با شرایط موافقت کنید!</string>
+    <string name="estate_image">عکس املاک</string>
     <string name="reset_password">بازیابی گذرواژه</string>
     <string name="please_input_your_recovery_code">لطفا کد بازیابی را وارد کنید</string>
-    <string name="recovery_code">کد بازیابی</string>
     <string name="ok">باشه</string>
     <string name="don_t_have_an_account">حساب کاربری ندارید؟</string>
     <string name="sign_up">ثبت نام کنید</string>
@@ -22,21 +20,30 @@
     <string name="welcome">خوش آمدید</string>
     <string name="login">ورود</string>
     <string name="email_address">آدرس ایمیل</string>
-    <string name="email">ایمیل</string>
-    <string name="password">گذرواژه</string>
+    <string name="email">ایمیل:</string>
+    <string name="password">گذرواژه:</string>
     <string name="remember_me">مرا به خاطر بسپار</string>
     <string name="forgot_password">فراموشی گذرواژه</string>
     <string name="please_input_new_password">لطفا گذرواژه جدید را وارد کنید</string>
-    <string name="repeated_password">تکرار گذرواژه</string>
+    <string name="repeated_password">تکرار گذرواژه:</string>
     <string name="save">ذخیره</string>
     <string name="register">ثبت نام کاربر</string>
     <string name="create_your_account">حساب کاربری خود را بسازید</string>
     <string name="by_registering_you_are_agreeing_to_our_n_terms_of_use_and_privacy_policy">با ثبت نام شرایط و قوانین ما را میپذیرید</string>
     <string name="accept_terms">پذیرش شرایط و قوانین</string>
     <string name="already_have_an_account">قبلا ثبت نام کرده اید؟</string>
-    <string name="your_registration_recovery_code_is">کد بازیابی حساب شما:</string>
-    <string name="please_keep_it_for_recovery_assistance">لطفا جهت بازیابی حساب کد را نگه دارید</string>
+    <string name="your_registration_is_complete">ایجاد حساب کامل شد</string>
     <string name="confirm">تایید</string>
-    <string name="shop_image">عکس فروشگاه</string>
-    <string name="un_success">Unsuccessful</string>
+    <string name="user_name">نام کاربری:</string>
+    <string name="yout_password_has_been_reset">گذر واژه شما تغییر کرد</string>
+    <string name="network_problem">شبکه متصل نیست! لطفا اتصال شبکه را بررسی کنید</string>
+    <string name="server_not_response">سرور در حال حاضر پاسخگو نیست!</string>
+    <string name="repeated_password_empty">تکرار گذر واژه اجباریست!</string>
+    <string name="password_alphanumeric">گذزواژه باید شامل حروف غیر عددی باشد!</string>
+    <string name="user_name_required">نام کاربری اجباریست!</string>
+    <string name="first_name_required">نام اجباریست!</string>
+    <string name="last_name_required">نام خانوادگی اجباریست!</string>
+    <string name="phone_number_required">شماره تلفن اجباریست!</string>
+    <string name="unknown_error">Unknown error!</string>
+    <string name="edit_profile">Edit profile</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.authentication.auth.view.compose
 
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -22,7 +21,6 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
@@ -54,60 +52,62 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import com.authentication.auth.R
-import com.authentication.auth.data.config.UserAutoLoginConfig
-import com.authentication.auth.data.model.User
+import com.authentication.auth.data.model.Login
 import com.authentication.auth.ui.theme.Black
 import com.authentication.auth.ui.theme.Blue
 import com.authentication.auth.ui.theme.White
-import com.authentication.auth.view.activity.AuthViewModelInstance.authNetworkViewModel
-import com.authentication.auth.view.activity.AuthViewModelInstance.authenticationViewModel
-import com.authentication.auth.viewmodel.AuthenticationViewModel
+import com.authentication.auth.viewmodel.AuthViewModel
+import com.network.state.viewmodel.NetworkStatusViewModel
 import com.authentication.auth.viewmodel.UserEvent
+
 
 @Composable
 fun LoginCompose(
     activity: ComponentActivity,
+    networkStatusViewModel: NetworkStatusViewModel,
+    authViewModel: AuthViewModel,
     onForgotClick: () -> Unit,
     onLoginClick: () -> Unit,
     onSignUpClick: () -> Unit
 ) {
     val snackBarHost = remember { SnackbarHostState() }
-    var showProgressBar by remember { mutableStateOf(false) }
     var rememberMeChecked by rememberSaveable { mutableStateOf(false) }
     var showSnack by remember { mutableStateOf(false) }
-    val userValidationState = authenticationViewModel.personState
+    var serverError by remember { mutableStateOf("") }
+
+    val userValidationState = authViewModel.personState
     val context = LocalContext.current
-    if (showProgressBar){
-        CircularProgressIndicator()
-    }
-    LaunchedEffect(key1 = userValidationState , key2 = showProgressBar) {
-        showProgressBar = true
-        authenticationViewModel.validationEvent.collect validationEvent@{ event ->
-            if (event == AuthenticationViewModel.ValidationEvent.Success) {
-                authenticationViewModel.getUserList.collect { userList ->
-                    val user: User = userList.first { it.email == userValidationState.email && it.password == userValidationState.password }
-                    try {
-                        authNetworkViewModel.login(user.email, user.password)
-                            .observe(activity) {
-                                if (it == "0") throw Error()
-                                showProgressBar = false
-                                if (rememberMeChecked)
-                                    UserAutoLoginConfig(context).save(user.id, true)
-                                else
-                                    UserAutoLoginConfig(context).save(user.id, false)
-                                onLoginClick()
-                            }
-                    } catch (e: Error) {
-                        Toast.makeText(
-                            activity,
-                            activity.getString(R.string.un_success),
-                            Toast.LENGTH_LONG
-                        ).show()
+
+    LaunchedEffect(key1 = userValidationState) {
+        activity.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            authViewModel.validationEvent.collect validationEvent@{ event ->
+                if (event == AuthViewModel.ValidationEvent.Success) {
+                    networkStatusViewModel.start(activity)
+                    authViewModel.loginUser(
+                        Login(
+                            userName = userValidationState.userName,
+                            password = userValidationState.password
+                        )
+                    ) { res ->
+                        if (res.isSuccessful) {
+                            authViewModel.saveUserInfoIntoSharedPreferences(
+                                userValidationState.userName,
+                                true
+                            )
+                            authViewModel.clearCache()
+                            onLoginClick()
+                        } else {
+                            serverError = res.errorBody()?.string()!!
+                            showSnack = true
+                        }
                     }
                 }
             }
         }
+
     }
 
     Scaffold(
@@ -143,10 +143,10 @@ fun LoginCompose(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    if (showSnack && userValidationState.userNotFoundError.isNotEmpty()) {
+                    if (showSnack && serverError.isNotEmpty()) {
                         LaunchedEffect(key1 = snackBarHost) {
                             snackBarHost.showSnackbar(
-                                message = context.getString(R.string.user_not_found),
+                                message = serverError,
                                 actionLabel = context.getString(R.string.ok)
                             )
                             showSnack = false
@@ -154,10 +154,9 @@ fun LoginCompose(
                         }
                     }
 
-
                     Image(
-                        painter = painterResource(id = R.drawable.shop),
-                        contentDescription = stringResource(id = R.string.shop_image)
+                        painter = painterResource(id = R.drawable.estate),
+                        contentDescription = stringResource(id = R.string.estate_image)
                     )
 
                     Column(
@@ -195,24 +194,24 @@ fun LoginCompose(
                 ) {
 
                     LoginComposeTextFields(
-                        valueSet = userValidationState.email,
+                        valueSet = userValidationState.userName,
                         onValueChangeSet = {
-                            authenticationViewModel.onEvent(UserEvent.EmailChanged(it))
+                            authViewModel.onEvent(UserEvent.UserNameChanged(it))
                         },
-                        onPlaceHolderId = R.string.email_address,
-                        keyboardType = KeyboardType.Email,
-                        isError = userValidationState.emailError.isNotEmpty(),
-                        errorMessage = userValidationState.emailError,
+                        onPlaceHolderId = R.string.user_name,
+                        keyboardType = KeyboardType.Text,
+                        isError = userValidationState.userNameError.isNotEmpty(),
+                        errorMessage = userValidationState.userNameError,
                         onTrailingIconSet = {
-                            authenticationViewModel.onEvent(UserEvent.EmailChanged(""))
+                            authViewModel.onEvent(UserEvent.UserNameChanged(""))
                         },
-                        labelId = R.string.email
+                        labelId = R.string.user_name
                     )
 
                     LoginComposeTextFields(
                         valueSet = userValidationState.password,
                         onValueChangeSet = {
-                            authenticationViewModel.onEvent(
+                            authViewModel.onEvent(
                                 UserEvent.PasswordChanged(
                                     it
                                 )
@@ -224,7 +223,7 @@ fun LoginCompose(
                         isError = userValidationState.passwordError.isNotEmpty(),
                         errorMessage = userValidationState.passwordError,
                         onTrailingIconSet = {
-                            authenticationViewModel.onEvent(
+                            authViewModel.onEvent(
                                 UserEvent.PasswordChanged(
                                     ""
                                 )
@@ -260,6 +259,7 @@ fun LoginCompose(
                                 .padding(end = 50.dp)
                                 .align(Alignment.CenterEnd),
                             onClick = {
+                                authViewModel.clearCache()
                                 onForgotClick()
                             }) {
                             Text(text = stringResource(id = R.string.forgot_password))
@@ -280,8 +280,7 @@ fun LoginCompose(
                             .align(Alignment.TopCenter),
                         containerColor = Blue,
                         onClick = {
-                            showSnack = true
-                            authenticationViewModel.onEvent(UserEvent.LoginSubmit)
+                            authViewModel.onEvent(UserEvent.LoginSubmit)
                         }) {
                         Text(
                             text = stringResource(id = R.string.login),
@@ -289,12 +288,14 @@ fun LoginCompose(
                         )
                     }
 
-                    TextButton(modifier = Modifier
-                        .wrapContentWidth()
-                        .wrapContentHeight()
-                        .align(Alignment.BottomEnd)
-                        .padding(60.dp),
+                    TextButton(
+                        modifier = Modifier
+                            .wrapContentWidth()
+                            .wrapContentHeight()
+                            .align(Alignment.BottomEnd)
+                            .padding(60.dp),
                         onClick = {
+                            authViewModel.clearCache()
                             onSignUpClick()
                         }) {
                         Text(
@@ -371,3 +372,7 @@ private fun LoginComposeTextFields(
         label = { Text(text = stringResource(id = labelId)) }
     )
 }
+
+
+
+

@@ -1,77 +1,47 @@
 package com.authentication.auth.di
 
 import android.content.Context
-import androidx.room.Room
-import com.authentication.auth.data.local.UserDatabase
-import com.authentication.auth.data.model.Constants.AUTH_DATABASE_NAME
-import com.authentication.auth.data.remote.AuthApiService
-import com.authentication.auth.data.use_case.ValidateTerms
-import com.authentication.auth.data.use_case.ValidateUserEmail
-import com.authentication.auth.data.use_case.ValidateUserAlreadyExist
-import com.authentication.auth.data.use_case.ValidateUserNotFound
-import com.authentication.auth.data.use_case.ValidateUserPassword
-import com.authentication.auth.data.use_case.ValidateUserRecoveryCode
-import com.authentication.auth.data.use_case.ValidateUserRecoveryCodeNotExist
-import com.authentication.auth.data.use_case.ValidateUserRepeatedPassword
+import com.authentication.auth.data.config.AccountRecoveryPreferences
+import com.authentication.auth.data.config.UserAutoLoginPreferencesRepository
+import com.authentication.auth.data.remote.IAuthApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object UserModule {
 
+    const val SERVER_URL = "http://10.0.2.2:5068"
 
-
+    @Provides
     @Singleton
-    @Provides
-    fun provideDataBase(@ApplicationContext context: Context) =
-        synchronized(UserDatabase::class.java) {
-            Room.databaseBuilder(context, UserDatabase::class.java, AUTH_DATABASE_NAME).build()
-        }
+    fun provideUserAutoLoginPreferences(@ApplicationContext context: Context): UserAutoLoginPreferencesRepository {
+        return UserAutoLoginPreferencesRepository(context)
+    }
 
+    @Provides
     @Singleton
-    @Provides
-    fun provideAuthApiService(retrofit: Retrofit): AuthApiService =
-        retrofit.create(AuthApiService::class.java)
+    fun provideAccountRecoveryPreferences(@ApplicationContext context: Context): AccountRecoveryPreferences {
+        return AccountRecoveryPreferences(context)
+    }
 
+    @Provides
     @Singleton
-    @Provides
-    fun provideUserDao(db: UserDatabase) = db.userDao()
+    fun provideRetrofit(): Retrofit =
+        Retrofit.Builder().baseUrl(SERVER_URL).addConverterFactory(
+            GsonConverterFactory.create()
+        ).build()
 
     @Provides
-    fun provideValidationUserEmail(@ApplicationContext context: Context): ValidateUserEmail =
-        ValidateUserEmail(context)
-
-    @Provides
-    fun provideValidationUserPassword(@ApplicationContext context: Context): ValidateUserPassword =
-        ValidateUserPassword(context)
-
-    @Provides
-    fun provideValidationUserRepeatedPassword(@ApplicationContext context: Context): ValidateUserRepeatedPassword =
-        ValidateUserRepeatedPassword(context)
-
-    @Provides
-    fun provideValidateUserNotFound(@ApplicationContext context: Context): ValidateUserNotFound =
-        ValidateUserNotFound(context)
-
-    @Provides
-    fun provideValidationUserAlreadyExist(@ApplicationContext context: Context): ValidateUserAlreadyExist =
-        ValidateUserAlreadyExist(context)
-
-    @Provides
-    fun provideValidationUserRecoveryCode(@ApplicationContext context: Context): ValidateUserRecoveryCode =
-        ValidateUserRecoveryCode(context)
-
-    @Provides
-    fun provideValidationUserRecoveryCodeNotExist(@ApplicationContext context: Context): ValidateUserRecoveryCodeNotExist =
-        ValidateUserRecoveryCodeNotExist(context)
-
-    @Provides
-    fun provideValidationTerms(@ApplicationContext context: Context): ValidateTerms =
-        ValidateTerms(context)
+    @Singleton
+    fun provideAuthApiService(retrofit: Retrofit): IAuthApiService =
+        retrofit.create(
+            IAuthApiService::class.java
+        )
 }

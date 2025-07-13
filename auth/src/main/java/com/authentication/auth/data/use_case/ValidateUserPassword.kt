@@ -11,6 +11,12 @@ class ValidateUserPassword(var context: Context) {
                 errorMessage = context.getString(R.string.password_require)
             )
         }
+        if (!(passwordContainsNonAlphanumeric(password))){
+            return ValidationResult(
+                successful = false,
+                errorMessage = context.getString(R.string.password_alphanumeric)
+            )
+        }
         if (password.length < 8) {
             return ValidationResult(
                 successful = false,
@@ -27,5 +33,10 @@ class ValidateUserPassword(var context: Context) {
         return ValidationResult(
             successful = true
         )
+    }
+
+    private fun passwordContainsNonAlphanumeric(password: String): Boolean {
+        // Regular expression to check for at least one non-alphanumeric character
+        return password.any { !it.isLetterOrDigit() }
     }
 }

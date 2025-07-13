@@ -43,17 +43,17 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.authentication.auth.data.model.GlobalFunctions
-import com.authentication.auth.data.model.GlobalFunctions.FadeInAnimation
-import com.authentication.auth.view.activity.AuthViewModelInstance
-import com.authentication.auth.viewmodel.AuthenticationViewModel
+import com.authentication.auth.data.model.GlobalFunctions.FadeAnimation
+import com.authentication.auth.viewmodel.AuthViewModel
+import com.network.state.viewmodel.NetworkStatusViewModel
 import com.store.shop.R
-import com.store.shop.view.activity.ShopActivity.Constance.CATEGORY
-import com.store.shop.view.activity.ShopActivity.Constance.CATEGORY_LIST
-import com.store.shop.view.activity.ShopActivity.Constance.FAVORITE
-import com.store.shop.view.activity.ShopActivity.Constance.HOME
-import com.store.shop.view.activity.ShopActivity.Constance.PRODUCT
-import com.store.shop.view.activity.ShopActivity.Constance.PROFILE
-import com.store.shop.view.activity.ShopActivity.Constance.SETTING
+import com.store.shop.helper.constants.ComposeConstants.CATEGORY
+import com.store.shop.helper.constants.ComposeConstants.CATEGORY_LIST
+import com.store.shop.helper.constants.ComposeConstants.FAVORITE
+import com.store.shop.helper.constants.ComposeConstants.HOME
+import com.store.shop.helper.constants.ComposeConstants.PRODUCT
+import com.store.shop.helper.constants.ComposeConstants.PROFILE
+import com.store.shop.helper.constants.ComposeConstants.SETTING
 import com.store.shop.view.activity.ui.theme.ShopTheme
 import com.store.shop.view.compose.CategoryCompose
 import com.store.shop.view.compose.FavoriteCompose
@@ -70,7 +70,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ShopActivity : ComponentActivity() {
     private val localShopViewModel: LocalShopViewModel by viewModels()
     private val remoteShopViewModel: RemoteShopViewModel by viewModels()
-    private val authenticationViewModel : AuthenticationViewModel by viewModels()
+//    private val authenticationViewModel : AuthenticationViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,7 +83,8 @@ class ShopActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     private fun Shop() {
-        AuthViewModelInstance.authenticationViewModel = authenticationViewModel
+        val authViewModel: AuthViewModel by viewModels()
+        val networkStatusViewModel: NetworkStatusViewModel by viewModels()
         val navController = rememberNavController()
         var darkTheme by remember { mutableStateOf(false) }
         var openSettingInvoke by remember { mutableStateOf(false) }
@@ -179,7 +180,7 @@ class ShopActivity : ComponentActivity() {
                 ) {
 
                     composable(HOME) {
-                        FadeInAnimation {
+                        FadeAnimation {
                             HomeCompose(remoteShopViewModel) {
                                 navController.navigate(PRODUCT)
                             }
@@ -187,13 +188,13 @@ class ShopActivity : ComponentActivity() {
                     }
 
                     composable(PRODUCT) {
-                        FadeInAnimation {
+                        FadeAnimation {
                             ProductCompose(remoteShopViewModel, localShopViewModel)
                         }
                     }
 
                     composable(CATEGORY) {
-                        FadeInAnimation {
+                        FadeAnimation {
                             CategoryCompose(remoteShopViewModel, onCategoryItemClick = {
                                 navController.navigate("$CATEGORY_LIST/$it")
                             })
@@ -204,7 +205,7 @@ class ShopActivity : ComponentActivity() {
                         type = NavType.StringType
                     })) { navBackStackEntry ->
                         navBackStackEntry.arguments?.getString("id").let { categoryId ->
-                            FadeInAnimation {
+                            FadeAnimation {
                                 ProductListCompose(
                                     remoteShopViewModel,
                                     categoryId!!,
@@ -216,7 +217,7 @@ class ShopActivity : ComponentActivity() {
                     }
 
                     composable(FAVORITE) {
-                        FadeInAnimation {
+                        FadeAnimation {
                             FavoriteCompose(
                                 remoteShopViewModel,
                                 localShopViewModel,
@@ -227,9 +228,9 @@ class ShopActivity : ComponentActivity() {
                     }
 
                     composable(SETTING) {
-                        FadeInAnimation {
+                        FadeAnimation {
                             SettingCompose(
-                                context = applicationContext,
+                                authViewModel = authViewModel,
                                 darkTheme = darkTheme,
                                 onThemeUpdated = {
                                     darkTheme = !darkTheme
@@ -237,21 +238,21 @@ class ShopActivity : ComponentActivity() {
                                 onAccountClick = {
                                     navController.navigate(PROFILE)
                                 },
-                                onClearHistoryClick = {
-                                    selectedItemIndex = 0
-                                    navController.navigate(HOME)
-                                },
                                 onNotificationClick = {
                                     openNotificationSettings(this@ShopActivity)
-                                })
+                                }
+                            )
                         }
                     }
                     composable(PROFILE) {
-                        FadeInAnimation {
+                        FadeAnimation {
                             ProfileCompose(
+                                activity = this@ShopActivity,
+                                networkStatusViewModel = networkStatusViewModel,
                                 onLogout = {
                                     GlobalFunctions.logOut(this@ShopActivity)
-                                })
+                                }, authViewModelMainActivity = authViewModel
+                            )
                         }
                     }
                 }
@@ -269,16 +270,6 @@ class ShopActivity : ComponentActivity() {
         HOME,
         CATEGORY,
         FAVORITE
-    }
-
-    object Constance {
-        const val HOME = "home"
-        const val PRODUCT = "product"
-        const val CATEGORY = "category"
-        const val FAVORITE = "favorite"
-        const val CATEGORY_LIST = "category_list"
-        const val SETTING = "setting"
-        const val PROFILE = "profile"
     }
 
     private fun openNotificationSettings(activity: ComponentActivity) {

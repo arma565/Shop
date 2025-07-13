@@ -26,7 +26,6 @@
     <string name="app_version">App version:</string>
     <string name="about_app">About app</string>
     <string name="clear">Clear</string>
-    <string name="delete">Delete</string>
     <string name="log_out">Log Out</string>
     <string name="account">Account</string>
     <string name="on">On</string>
@@ -38,23 +37,26 @@
     <string name="no_name">No Name</string>
     <string name="delete_account">Delete Account</string>
     <string name="upload_image_profile">Upload Image Profile</string>
-    <string name="are_you_sure">Are you sure?</string>
     <string name="email">email</string>
     <string name="user">user</string>
     <string name="confirm">Confirm</string>
     <string name="dismiss">Dismiss</string>
     <string name="notifications">Notifications</string>
     <string name="history">History</string>
-    <string name="clear_history">Clear history</string>
     <string name="username">Username</string>
     <string name="repeated_password">Repeat password</string>
     <string name="change_password">Change password</string>
-    <string name="please_fill_at_lease_one_field">please fill at lease one field!</string>
     <string name="edit_profile">Edit profile</string>
     <string name="firstname">Name:</string>
     <string name="lastname">Family name:</string>
-    <string name="phonenumber">Phone number:</string>
     <string name="current_password">Current password:</string>
     <string name="new_password">New password:</string>
+    <string name="unknown_error">Unknown error!</string>
+    <string name="image_uploaded_failed">Upload image failed!</string>
+    <string name="could_n_t_save_file_to_cache">Couldn\'t save file to cache dir</string>
+    <string name="phone_number">Phone number</string>
+    <string name="show_password">Show password</string>
+    <string name="hide_password">Hide password</string>
+    <string name="password">Password</string>
 
 </resources>

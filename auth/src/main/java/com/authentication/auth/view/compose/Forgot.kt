@@ -1,6 +1,6 @@
 package com.authentication.auth.view.compose
 
-
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -42,28 +42,51 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import com.authentication.auth.R
+import com.authentication.auth.data.model.Recovery
 import com.authentication.auth.ui.theme.Black
 import com.authentication.auth.ui.theme.Blue
 import com.authentication.auth.ui.theme.White
-import com.authentication.auth.view.activity.AuthViewModelInstance.authenticationViewModel
-import com.authentication.auth.viewmodel.AuthenticationViewModel
+import com.authentication.auth.viewmodel.AuthViewModel
+import com.network.state.viewmodel.NetworkStatusViewModel
 import com.authentication.auth.viewmodel.UserEvent
 
 @Composable
 fun ForgotCompose(
-    onRecoverUserClick: (id: Int) -> Unit,
+    activity: ComponentActivity,
+    networkStatusViewModel: NetworkStatusViewModel,
+    authViewModel: AuthViewModel,
+    onRecoverUserClick: () -> Unit,
     onSignUpClick: () -> Unit
 ) {
-
     val snackBarHost = remember { SnackbarHostState() }
     var showSnack by remember { mutableStateOf(false) }
-    val userValidationState = authenticationViewModel.personState
+    var serverError by remember { mutableStateOf("") }
+    val userValidationState = authViewModel.personState
     val context = LocalContext.current
+
     LaunchedEffect(key1 = userValidationState) {
-        authenticationViewModel.validationEvent.collect { event ->
-            if (event == AuthenticationViewModel.ValidationEvent.Success) {
-                onRecoverUserClick(authenticationViewModel.getUserList.value.first { it.recoveryCode == userValidationState.recoveryCode }.id)
+        activity.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            authViewModel.validationEvent.collect { event ->
+                if (event == AuthViewModel.ValidationEvent.Success) {
+                    networkStatusViewModel.start(activity)
+                    authViewModel.recovery(Recovery(email = userValidationState.email)) { res ->
+
+                        if (res.isSuccessful) {
+                            authViewModel.setEmailAndToken(
+                                email = userValidationState.email,
+                                token = res.body()?.string()!!
+                            )
+                            authViewModel.clearCache()
+                            onRecoverUserClick()
+                        } else {
+                            serverError = res.errorBody()?.string()!!
+                            showSnack = true
+                        }
+                    }
+                }
             }
         }
     }
@@ -100,10 +123,10 @@ fun ForgotCompose(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    if (showSnack && userValidationState.recoveryCodeNotExistError.isNotEmpty()) {
+                    if (showSnack && serverError.isNotEmpty()) {
                         LaunchedEffect(key1 = snackBarHost) {
                             snackBarHost.showSnackbar(
-                                userValidationState.recoveryCodeNotExistError,
+                                message = serverError,
                                 actionLabel = context.getString(
                                     R.string.ok
                                 )
@@ -114,8 +137,8 @@ fun ForgotCompose(
                     }
 
                     Image(
-                        painter = painterResource(id = R.drawable.shop),
-                        contentDescription = stringResource(id = R.string.shop_image)
+                        painter = painterResource(id = R.drawable.estate),
+                        contentDescription = stringResource(id = R.string.estate_image)
                     )
 
                     Column(
@@ -141,23 +164,23 @@ fun ForgotCompose(
 
                     OutlinedTextField(
                         modifier = Modifier.padding(top = 50.dp),
-                        value = userValidationState.recoveryCode,
+                        value = userValidationState.email,
                         onValueChange = {
-                            authenticationViewModel.onEvent(
-                                UserEvent.RecoveryCodeChange(
+                            authViewModel.onEvent(
+                                UserEvent.EmailChanged(
                                     it
                                 )
                             )
                         },
 
                         placeholder = {
-                            Text(text = stringResource(R.string.recovery_code))
+                            Text(text = stringResource(R.string.email))
                         },
-                        isError = userValidationState.recoveryCodeError.isNotEmpty(),
+                        isError = userValidationState.emailError.isNotEmpty(),
                         supportingText = {
-                            if (userValidationState.recoveryCodeError.isNotEmpty()) {
+                            if (userValidationState.emailError.isNotEmpty()) {
                                 Text(
-                                    text = userValidationState.recoveryCodeError,
+                                    text = userValidationState.emailError,
                                     modifier = Modifier.fillMaxWidth(),
                                     color = MaterialTheme.colorScheme.error,
                                     textAlign = TextAlign.Start
@@ -165,10 +188,10 @@ fun ForgotCompose(
                             }
                         },
                         trailingIcon = {
-                            if (userValidationState.recoveryCode.isNotEmpty()) {
+                            if (userValidationState.email.isNotEmpty()) {
                                 IconButton(onClick = {
-                                    authenticationViewModel.onEvent(
-                                        UserEvent.RecoveryCodeChange(
+                                    authViewModel.onEvent(
+                                        UserEvent.EmailChanged(
                                             ""
                                         )
                                     )
@@ -180,7 +203,7 @@ fun ForgotCompose(
                                 }
                             }
                         },
-                        label = { Text(text = stringResource(id = R.string.recovery_code)) })
+                        label = { Text(text = stringResource(id = R.string.email)) })
 
                     Box(
                         modifier = Modifier
@@ -188,17 +211,18 @@ fun ForgotCompose(
                             .wrapContentHeight()
                             .padding(top = 50.dp)
                     ) {
-                        ExtendedFloatingActionButton(modifier = Modifier
-                            .width(300.dp)
-                            .wrapContentHeight()
-                            .align(Alignment.TopCenter),
+                        ExtendedFloatingActionButton(
+                            modifier = Modifier
+                                .width(300.dp)
+                                .wrapContentHeight()
+                                .align(Alignment.TopCenter),
                             containerColor = Blue,
                             onClick = {
-                                showSnack = true
-                                authenticationViewModel.onEvent(UserEvent.ForgotSubmit)
+                                authViewModel.onEvent(UserEvent.ForgotSubmit)
                             }) {
                             Text(
-                                text = stringResource(id = R.string.reset_password), color = White
+                                text = stringResource(id = R.string.reset_password),
+                                color = White
                             )
                         }
 
@@ -207,6 +231,7 @@ fun ForgotCompose(
                                 .padding(60.dp)
                                 .align(Alignment.BottomEnd),
                             onClick = {
+                                authViewModel.clearCache()
                                 onSignUpClick()
                             }) {
                             Text(
