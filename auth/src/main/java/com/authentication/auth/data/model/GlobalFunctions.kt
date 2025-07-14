@@ -27,7 +27,7 @@ object GlobalFunctions {
     fun logIn(activity: ComponentActivity) {
         activity.finish()
         val intentPropertyActivity =
-            Intent(activity, Class.forName("com.real.estate.view.activity.MainActivity"))
+            Intent(activity, Class.forName("com.store.shop.view.activity.ShopActivity"))
         intentPropertyActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         activity.startActivity(intentPropertyActivity, activityFadeAnimation(activity as Context))
     }

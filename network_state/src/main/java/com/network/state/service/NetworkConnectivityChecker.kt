@@ -26,8 +26,7 @@ class NetworkConnectivityChecker(
     fun checkNetworkConnectivity() {
         val network = connectivityManager.activeNetwork
         val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
-        val isConnected =
-            networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) ?: false
+        val isConnected = networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) ?: false
         listener.onNetworkConnected(isConnected)
 
         // Register for network updates if not already registered
